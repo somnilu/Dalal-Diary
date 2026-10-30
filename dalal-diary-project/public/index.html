@@ -173,6 +173,8 @@ h1 em{font-size:clamp(1.4rem,2.75vw,3.2rem);white-space:nowrap;margin-top:12px}
 .mb textarea{display:block;width:100%;min-height:120px;border:1.5px solid #CDE6D6;border-radius:10px;padding:10px;font:500 .78rem/1.4 monospace;background:#fff;color:#0C2B20}
 #ms{font-weight:700;color:#0E8F4F;font-size:.9rem}
 #sy{font:500 1.15rem Caveat,cursive;color:#4C6B5C;margin-left:auto;align-self:center}
+.more{grid-column:1/-1;justify-self:center;margin:8px 0;background:none;border:2px solid #0E8F4F;border-radius:48% 52% 46% 54%/58% 44% 56% 42%;padding:.3em 1.4em;font:700 1.5rem Caveat,cursive;color:#0E8F4F;cursor:pointer}
+.px{margin-top:8px;font:700 1.05rem 'Bricolage Grotesque',sans-serif;display:flex;gap:.5em;align-items:baseline;min-height:1.3em}.px small{font:700 .8rem 'DM Sans',sans-serif}.px.up small{color:#0E8F4F}.px.dn small{color:#C23B52}.px.big{font-size:1.6rem}
 </style>
 </head>
 <body>
@@ -192,13 +194,13 @@ h1 em{font-size:clamp(1.4rem,2.75vw,3.2rem);white-space:nowrap;margin-top:12px}
   <div class="chips" id="chips" role="group" aria-label="Filter by category"></div>
   <div class="tools"><button id="ec">✎ Edit categories</button><button id="bk">⇩ Backup and restore</button><span id="sy"></span></div>
   <div class="grid" id="grid"></div>
-  <p class="note">This first version holds 50 well-known stocks as a sample. The full NSE and BSE list and live prices come from Upstox next. Your notes sync through your own Supabase database, so they follow you between phone and laptop.</p>
+  <p class="note">Prices come from Upstox and refresh every few seconds while you browse. The stock list updates itself every morning. Your notes sync through your own Supabase database, so they follow you between phone and laptop.</p>
 </section>
 <div class="md" id="md" hidden><div class="mb" id="mb"></div></div>
 <div class="scrim" id="scrim"></div>
 <aside class="pn" id="pn" aria-label="Stock diary page"></aside>
 <script>
-const RAW=`RELIANCE|Reliance Industries|Energy
+let RAW=`RELIANCE|Reliance Industries|Energy
 TCS|Tata Consultancy Services|IT
 HDFCBANK|HDFC Bank|Banking
 INFY|Infosys|IT
@@ -248,6 +250,7 @@ SUZLON|Suzlon Energy|Renewables
 IRFC|Indian Railway Finance Corp|NBFC
 TATAPOWER|Tata Power|Power
 PAYTM|Paytm (One 97)|Fintech`.split('\n').map(l=>{const[s,n,x]=l.split('|');return{s,n,x}});
+RAW.forEach(r=>r.q=(r.s+' '+r.n+' '+r.x).toLowerCase());
 let CATS=[['Rejected','#E5566D'],['Wait for Data','#D99A12'],['Condition Watch List','#3E8FD1'],['Let’s Invest','#26B573'],['All in Baby','#0B5D3B']];
 const $=s=>document.querySelector(s);
 const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -263,17 +266,31 @@ function chips(){
   const all=[['All','']].concat(CATS);
   $('#chips').innerHTML=all.map(([c,k])=>`<button class="chip" style="--k:${k}" aria-pressed="${cat===c}" data-c="${esc(c)}">${k?'<i></i>':''}${esc(c)} <b>${c==='All'?RAW.length:n(c)}</b></button>`).join('');
 }
+let lim=60;
+const rk=(r,t)=>r.s.toLowerCase().startsWith(t)?0:r.n.toLowerCase().startsWith(t)?1:2,kk=r=>r.nk||r.bk||'';
+function card(r){const d=db[r.s]||{},k=kc(d.cat),nn=(d.log||[]).filter(e=>e.t==='note').length,one=r.nk&&!r.bk?'NSE only':r.bk&&!r.nk?'BSE only':'';
+  return `<button class="card" data-s="${esc(r.s)}" style="--k:${k}"><div class="tk">${esc(r.s.replace(/^BSE_/,''))}</div><h3>${esc(r.n)}</h3><div class="meta">${esc(r.x||'')}${one?`<span class="tag">${one}</span>`:''}</div><div class="px" data-k="${esc(kk(r))}"></div>${d.cat?`<div class="st">${esc(d.cat)}${nn?' &middot; '+nn+(nn>1?' notes':' note'):''}</div>`:''}</button>`}
 function grid(){
   const t=q.trim().toLowerCase();
-  const list=RAW.filter(r=>(!t||(r.s+' '+r.n+' '+r.x).toLowerCase().includes(t))&&(cat==='All'||(db[r.s]||{}).cat===cat));
+  const list=RAW.filter(r=>(!t||r.q.includes(t))&&(cat==='All'||(db[r.s]||{}).cat===cat));
+  if(t)list.sort((a,b)=>rk(a,t)-rk(b,t));else if(cat==='All')list.sort((a,b)=>!!db[b.s]-!!db[a.s]);
   $('#cnt').textContent=list.length+' found';
-  $('#grid').innerHTML=list.length?list.map(r=>{const d=db[r.s]||{},k=kc(d.cat),nn=(d.log||[]).filter(e=>e.t==='note').length;
-    return `<button class="card" data-s="${esc(r.s)}" style="--k:${k}"><div class="tk">${esc(r.s)}</div><h3>${esc(r.n)}</h3><div class="meta">${esc(r.x)}</div>${d.cat?`<div class="st">${esc(d.cat)}${nn?' &middot; '+nn+(nn>1?' notes':' note'):''}</div>`:''}</button>`}).join(''):'<div class="empty">No stocks match. Try a symbol like TCS or a name like Tata.</div>';
+  $('#grid').innerHTML=list.length?list.slice(0,lim).map(card).join('')+(list.length>lim?`<button class="more" id="more">Show more (${list.length-lim} left)</button>`:''):'<div class="empty">No stocks match. Try a symbol like TCS or a name like Tata.</div>';
+  paint();qs();
 }
-function panel(){
+const Q={},fm=n=>n.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});
+function paint(){document.querySelectorAll('.px').forEach(e=>{const v=Q[e.dataset.k];if(!v||v[0]==null){e.innerHTML='';e.className='px';return}const c=v[1]?(v[0]-v[1])/v[1]*100:0;e.className='px '+(c>=0?'up':'dn')+(e.closest('.pn')?' big':'');e.innerHTML=`₹${fm(v[0])} <small>${c>=0?'+':''}${c.toFixed(2)}%</small>`})}
+let qt=0;const qs=()=>{clearTimeout(qt);qt=setTimeout(getQ,250)};
+async function getQ(){if(!PW||!okc||document.hidden)return;const ks=[...new Set([...document.querySelectorAll('.px')].map(e=>e.dataset.k).filter(Boolean))].slice(0,100);if(!ks.length)return;
+  try{const r=await api('GET','/api/quotes?keys='+ks.map(encodeURIComponent).join(','));Object.assign(Q,r.q);paint()}catch(e){}}
+setInterval(getQ,10000);
+fetch('/stocks.json').then(r=>r.ok?r.json():Promise.reject()).then(a=>{if(!Array.isArray(a)||a.length<500)return;RAW=a.map(([i,n,ns,nk,bs,bk])=>({i,n,s:ns||'BSE_'+bs,nk,bk,x:'',q:(ns+' '+bs+' '+n).toLowerCase()}));chips();grid()}).catch(()=>{});
+function panel(){panel0();paint();qs()}
+function panel0(){
   const r=RAW.find(x=>x.s===cur),d=get(cur);
   const log=d.log.slice().reverse().map(e=>e.t==='move'?`<div class="en"><time>${fmt(e.d)}</time><div class="mv" style="--k:${kc(e.c)}"><i></i>${e.c?'Moved to '+esc(e.c):'Removed from category'}</div>${e.w?`<p>${esc(e.w)}</p>`:''}</div>`:`<div class="en"><time>${fmt(e.d)}</time><p>${esc(e.x)}</p></div>`).join('');
-  $('#pn').innerHTML=`<button class="x" aria-label="Close" id="cl">&times;</button><div class="tk">${esc(r.s)}</div><h2>${esc(r.n)}</h2><div class="sec">${esc(r.x)}, listed on NSE and BSE</div>
+  $('#pn').innerHTML=`<button class="x" aria-label="Close" id="cl">&times;</button><div class="tk">${esc(r.s)}</div><h2>${esc(r.n)}</h2><div class="sec">${r.x?esc(r.x)+', ':''}listed on ${r.nk&&r.bk?'NSE and BSE':r.nk?'NSE only':r.bk?'BSE only':'NSE and BSE'}</div>
+  <div class="px" data-k="${esc(kk(r))}"></div>
   <div class="lb">Where does it stand?</div><div class="cc">${CATS.map(([c,k])=>`<button class="cb" style="--k:${k}" aria-pressed="${(pend||d.cat)===c}" data-m="${esc(c)}">${esc(c)}</button>`).join('')}${d.cat?'<button class="cb clr" data-m="">Clear</button>':''}</div>
   ${pend!==null&&pend!==d.cat?`<div class="lb">Why ${pend?'move it to '+esc(pend):'clear the category'}?</div><textarea id="why" placeholder="One line is enough."></textarea><button class="btn" id="mv">Save move</button>`:''}
   <div class="lb">Add a note</div><textarea id="nt" placeholder="What are you thinking about this company?"></textarea><button class="btn" id="an">Add note</button>
@@ -281,9 +298,9 @@ function panel(){
 }
 function open(s){cur=s;pend=null;panel();$('#pn').classList.add('on');$('#scrim').classList.add('on');$('#pn').scrollTop=0}
 function close(){$('#pn').classList.remove('on');$('#scrim').classList.remove('on');cur=null;chips();grid()}
-$('#q').addEventListener('input',e=>{q=e.target.value;grid()});
-$('#chips').addEventListener('click',e=>{const b=e.target.closest('.chip');if(b){cat=b.dataset.c;chips();grid()}});
-$('#grid').addEventListener('click',e=>{const c=e.target.closest('.card');if(c)open(c.dataset.s)});
+$('#q').addEventListener('input',e=>{q=e.target.value;lim=60;grid()});
+$('#chips').addEventListener('click',e=>{const b=e.target.closest('.chip');if(b){cat=b.dataset.c;lim=60;chips();grid()}});
+$('#grid').addEventListener('click',e=>{if(e.target.id==='more'){lim+=60;grid();return}const c=e.target.closest('.card');if(c)open(c.dataset.s)});
 $('#grid').addEventListener('mousemove',e=>{const c=e.target.closest('.card');if(!c)return;const b=c.getBoundingClientRect();c.style.setProperty('--ry',((e.clientX-b.left)/b.width-.5)*10+'deg');c.style.setProperty('--rx',(.5-(e.clientY-b.top)/b.height)*10+'deg')});
 $('#grid').addEventListener('mouseout',e=>{const c=e.target.closest('.card');if(c){c.style.setProperty('--rx','0deg');c.style.setProperty('--ry','0deg')}});
 $('#scrim').addEventListener('click',close);
