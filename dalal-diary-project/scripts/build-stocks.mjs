@@ -6,7 +6,7 @@ import {dirname} from 'node:path';
 const BASE='https://assets.upstox.com/market-quote/instruments/exchange/';
 const SRC={NSE_EQ:process.env.NSE_SRC||BASE+'NSE.json.gz',BSE_EQ:process.env.BSE_SRC||BASE+'BSE.json.gz'};
 const OUT=process.env.OUT||'dalal-diary-project/public/stocks.json';
-const EQ=/^INE[A-Z0-9]{6}01[A-Z0-9]{2}$/;
+const EQ=/^INE[A-Z0-9]{4}01[A-Z0-9]{3}$/;
 async function load(u){
   let b;if(/^https?:/.test(u)){const r=await fetch(u);if(!r.ok)throw new Error(u+' -> HTTP '+r.status);b=Buffer.from(await r.arrayBuffer())}else b=readFileSync(u);
   return JSON.parse(gunzipSync(b).toString());
