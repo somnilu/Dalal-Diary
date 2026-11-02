@@ -174,7 +174,7 @@ h1 em{font-size:clamp(1.4rem,2.75vw,3.2rem);white-space:nowrap;margin-top:12px}
 #ms{font-weight:700;color:#0E8F4F;font-size:.9rem}
 #sy{font:500 1.15rem Caveat,cursive;color:#4C6B5C;margin-left:auto;align-self:center}
 .more{grid-column:1/-1;justify-self:center;margin:8px 0;background:none;border:2px solid #0E8F4F;border-radius:48% 52% 46% 54%/58% 44% 56% 42%;padding:.3em 1.4em;font:700 1.5rem Caveat,cursive;color:#0E8F4F;cursor:pointer}
-.px{margin-top:8px;font:700 1.05rem 'Bricolage Grotesque',sans-serif;display:flex;gap:.5em;align-items:baseline;min-height:1.3em}.px small{font:700 .8rem 'DM Sans',sans-serif}.px.up small{color:#0E8F4F}.px.dn small{color:#C23B52}.px.big{font-size:1.6rem}
+.px{margin-top:8px;font:700 1.05rem 'Bricolage Grotesque',sans-serif;display:flex;gap:.5em;align-items:baseline;min-height:1.3em}.px small{font:700 .8rem 'DM Sans',sans-serif}.px.pup small{color:#0E8F4F}.px.pdn small{color:#C23B52}.px.big{font-size:1.6rem}
 </style>
 </head>
 <body>
@@ -279,7 +279,7 @@ function grid(){
   paint();qs();
 }
 const Q={},fm=n=>n.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});
-function paint(){document.querySelectorAll('.px').forEach(e=>{const v=Q[e.dataset.k];if(!v||v[0]==null){e.innerHTML='';e.className='px';return}const c=v[1]?(v[0]-v[1])/v[1]*100:0;e.className='px '+(c>=0?'up':'dn')+(e.closest('.pn')?' big':'');e.innerHTML=`₹${fm(v[0])} <small>${c>=0?'+':''}${c.toFixed(2)}%</small>`})}
+function paint(){document.querySelectorAll('.px').forEach(e=>{const v=Q[e.dataset.k];if(!v||v[0]==null){e.innerHTML='';e.className='px';return}const c=v[1]?(v[0]-v[1])/v[1]*100:0;e.className='px '+(c>=0?'pup':'pdn')+(e.closest('.pn')?' big':'');e.innerHTML=`₹${fm(v[0])} <small>${c>=0?'+':''}${c.toFixed(2)}%</small>`})}
 let qt=0;const qs=()=>{clearTimeout(qt);qt=setTimeout(getQ,250)};
 async function getQ(){if(!PW||!okc||document.hidden)return;const ks=[...new Set([...document.querySelectorAll('.px')].map(e=>e.dataset.k).filter(Boolean))].slice(0,100);if(!ks.length)return;
   try{const r=await api('GET','/api/quotes?keys='+ks.map(encodeURIComponent).join(','));Object.assign(Q,r.q);paint()}catch(e){}}
