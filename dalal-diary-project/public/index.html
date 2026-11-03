@@ -59,7 +59,7 @@ background-image:linear-gradient(90deg,transparent calc(var(--ml) - 1px),#E9A3AE
 .en .mv{font:600 .9rem/34px 'DM Sans',sans-serif;font-style:normal}.en .mv i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;background:var(--k)}
 :focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 
-body::before{content:"";position:fixed;left:0;top:0;bottom:0;width:30px;z-index:2;pointer-events:none;background:radial-gradient(circle at 15px 50%,#fff 0 5px,#0B3D2E 6px 8px,transparent 9px) 0 0/30px 40px repeat-y,linear-gradient(90deg,#DCEFE3,#F1FAF4);box-shadow:2px 0 8px #0B3D2E22}
+body::before{content:"";position:fixed;left:0;top:0;bottom:0;width:30px;z-index:6;pointer-events:none;background:radial-gradient(circle at 15px 50%,#fff 0 5px,#0B3D2E 6px 8px,transparent 9px) 0 0/30px 40px repeat-y,linear-gradient(90deg,#DCEFE3,#F1FAF4);box-shadow:2px 0 8px #0B3D2E22}
 .card::before{content:"";position:absolute;left:14px;top:0;bottom:0;width:1px;background:#E9A3AE88}
 
 html{scroll-behavior:smooth}body{overflow-x:hidden}
@@ -176,27 +176,80 @@ h1 em{font-size:clamp(1.4rem,2.75vw,3.2rem);white-space:nowrap;margin-top:12px}
 .more{grid-column:1/-1;justify-self:center;margin:8px 0;background:none;border:2px solid #0E8F4F;border-radius:48% 52% 46% 54%/58% 44% 56% 42%;padding:.3em 1.4em;font:700 1.5rem Caveat,cursive;color:#0E8F4F;cursor:pointer}
 .px{margin-top:8px;font:700 1.05rem 'Bricolage Grotesque',sans-serif;display:flex;gap:.5em;align-items:baseline;min-height:1.3em}.px small{font:700 .8rem 'DM Sans',sans-serif}.px.pup small{color:#0E8F4F}.px.pdn small{color:#C23B52}.px.big{font-size:1.6rem}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+:root{--nh:64px;--ease:cubic-bezier(.65,.05,.25,1);--paper:linear-gradient(90deg,transparent calc(var(--ml) - 1px),#E9A3AE99 calc(var(--ml) - 1px) var(--ml),transparent var(--ml)),repeating-linear-gradient(transparent 0 31px,#CFE5D9 31px 32px),#FCFFFD}
+body{padding-top:var(--nh)}
+.hero{min-height:calc(100svh - var(--nh))}.list{min-height:calc(100svh - var(--nh));padding-top:36px}
+.nav{position:fixed;top:0;left:30px;right:0;height:var(--nh);z-index:15;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 3.5vw 0 var(--ml);background:#FCFFFD;border-bottom:2px dashed #CDE6D6;box-shadow:0 10px 18px -16px #0B3D2E88}
+.nav .brand{font-size:1.6rem;color:inherit;text-decoration:none}
+.tabs{position:relative;display:flex;padding:5px;border:2px dashed #8DB8A2;border-radius:999px;background:#fff;box-shadow:0 8px 14px -10px #0B3D2E77;transform:rotate(-.5deg)}
+.tabs::before{content:"";position:absolute;left:20px;top:-10px;width:44px;height:15px;background:#FFE45Ecc;transform:rotate(-7deg);box-shadow:0 1px 2px #0003}
+.mark{position:absolute;left:0;top:5px;bottom:5px;border-radius:999px;background:linear-gradient(145deg,#14A25E,#0B7A45);box-shadow:0 6px 12px -6px #0B5D3Bcc;outline:2px dashed #ffffff99;outline-offset:-5px;transition:transform .9s var(--ease),width .9s var(--ease)}
+.tab{position:relative;z-index:1;text-decoration:none;color:#0C2B20;font:700 1.55rem/1 Caveat,cursive;padding:.42em 1.25em .48em;border-radius:999px;transition:color .9s var(--ease),transform .25s}
+.tab::after{content:"";position:absolute;left:24%;right:24%;bottom:.28em;height:5px;border-bottom:3px solid #0E8F4F;border-radius:50%;transform:scaleX(0);transition:transform .25s}
+.tab[aria-current]{color:#fff}
+.tab:not([aria-current]):hover{transform:translateY(-2px) rotate(-3deg);color:#0E8F4F}
+.tab:not([aria-current]):hover::after{transform:scaleX(1)}
+.tab.pop{animation:pop .9s}
+@keyframes pop{30%{transform:scale(1.12) rotate(-2deg)}60%{transform:scale(.97)}100%{transform:none}}
+.tab:focus-visible,.nav .brand:focus-visible{outline:2px solid #0E8F4F;outline-offset:3px;border-radius:999px}
+.sheet{display:contents}.vback,.shade,.cast{display:none}
+.view.flip{position:fixed;left:0;right:0;top:var(--nh);height:calc(100svh - var(--nh));perspective:2600px;pointer-events:none}
+.view.flip .sheet{display:block;position:absolute;inset:0;transform-style:preserve-3d;transform-origin:0 50%}
+.view.flip .vin{position:absolute;inset:0;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.view.flip .vc{min-height:100%;background:var(--paper)}
+.view.flip .vback{display:block;position:absolute;inset:0;transform:rotateY(180deg);backface-visibility:hidden;-webkit-backface-visibility:hidden;background:linear-gradient(270deg,#0B3D2E22,transparent 45%),var(--paper)}
+.view.flip .shade,.view.flip .cast{display:block;position:absolute;inset:0;pointer-events:none;opacity:0}
+.shade{background:linear-gradient(90deg,#0B3D2E00 30%,#0B3D2E66);backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.cast{background:linear-gradient(90deg,#0B3D2E66 0,#0B3D2E22 28%,transparent 62%)}
+@media(max-width:700px){:root{--nh:64px}.nav{padding:0 12px 0 30px;gap:8px}.nav .brand{font-size:1.1rem;gap:7px}.lg{width:26px;height:32px}.tab{font-size:1.3rem;padding:.4em .9em .46em}.hero{padding-top:28px}.list{padding-top:28px}}
+@media(prefers-reduced-motion:reduce){.mark,.tab{transition:none}.tab.pop{animation:none}}
+
+html{scrollbar-gutter:stable}
+@supports not (scrollbar-gutter:stable){html{overflow-y:scroll}}
+.nav{display:grid;grid-template-columns:1fr auto 1fr}
+.nav .brand{grid-column:1;justify-self:start}
+.tabs{padding:4px;border-width:2px}
+.mark{top:4px;bottom:4px;outline-offset:-4px}
+.tab{font-size:1.4rem;padding:.2em 1.3em .3em}
+.tab::after{bottom:.2em}
+.tabs::before{left:22px;top:-9px;width:40px;height:13px}
+.nav .tabs{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-.5deg)}
+@media(max-width:900px){.nav{display:flex;justify-content:space-between}.nav .tabs{position:relative;left:auto;top:auto;transform:rotate(-.5deg)}}
+@media(max-width:700px){.tab{font-size:1.2rem;padding:.2em .95em .3em}}
+
+html{color-scheme:light;background:#E3F4EA;scrollbar-width:thin;scrollbar-color:#6DC79B #E3F4EA}
+@supports not (scrollbar-color:auto){html::-webkit-scrollbar{width:10px}html::-webkit-scrollbar-track{background:#E3F4EA}html::-webkit-scrollbar-thumb{background:#6DC79B;border-radius:8px;border:2px solid #E3F4EA}}
+.pn,.mb{scrollbar-width:thin;scrollbar-color:#6DC79B transparent}
+.glowwrap{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:2}
 </style>
 </head>
 <body>
+<header class="nav"><a class="brand" href="#home" aria-label="Dalal Diary home"><span class="lgw"><svg class="lg" viewBox="0 0 34 42" aria-hidden="true"><rect x="3" y="2" width="28" height="38" rx="3" fill="#0E8F4F"/><rect x="3" y="2" width="6" height="38" rx="3" fill="#0A6B3B"/><path d="M32 6V37" stroke="#CDE6D6" stroke-width="2"/><path d="M24 2h5v11l-2.5-2.5L24 13z" fill="#fff"/><text x="19" y="30" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="11" fill="#fff">DD</text></svg></span><span class="bt">Dalal Diary</span></a>
+<nav class="tabs" aria-label="Pages"><span class="mark" aria-hidden="true"></span><a class="tab" data-v="home" href="#home">Home</a><a class="tab" data-v="stocks" href="#stocks">Stocks</a></nav></header>
+<main id="views">
+<div class="view" id="v-home"><div class="sheet"><div class="vin"><div class="vc">
 <section class="hero">
-  <div class="brand"><span class="lgw"><svg class="lg" viewBox="0 0 34 42" aria-hidden="true"><rect x="3" y="2" width="28" height="38" rx="3" fill="#0E8F4F"/><rect x="3" y="2" width="6" height="38" rx="3" fill="#0A6B3B"/><path d="M32 6V37" stroke="#CDE6D6" stroke-width="2"/><path d="M24 2h5v11l-2.5-2.5L24 13z" fill="#fff"/><text x="19" y="30" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="11" fill="#fff">DD</text></svg></span><span class="bt">Dalal Diary</span></div>
-  <div class="copy">
+    <div class="copy">
     <h1>The Diary <em>every <span class="hl">stock market paglu<svg viewBox="0 0 340 22" preserveAspectRatio="none" aria-hidden="true"><g class="f f1"><path pathLength="1" d="M3 7C60 2 120 11 180 6S290 9 337 4"/><path pathLength="1" d="M6 17C70 11 140 20 205 14S295 18 334 12"/></g><g class="f f2"><path pathLength="1" d="M2 8C50 4 130 9 190 7S300 8 338 6"/><path pathLength="1" d="M8 16C80 13 150 19 210 15S290 17 332 13"/></g><g class="f f3"><path pathLength="1" d="M4 6C70 4 110 10 175 5S280 11 336 5"/><path pathLength="1" d="M5 18C60 14 150 17 200 16S300 16 335 11"/></g></svg></span> needs</em></h1>
     <p class="sub">Search a company, file it under a category, and write down why. Your thinking stays dated, so you can see how it changed.</p>
     <a class="go" href="#stocks">Browse stocks</a>
     
   </div>
-  <div class="glow" aria-hidden="true"></div>
+  <div class="glowwrap" aria-hidden="true"><div class="glow"></div></div>
   <div class="deck" id="stage" role="button" tabindex="0" aria-label="Flip through the diary"><div class="book" id="book"></div></div>
 </section>
-<section class="list" id="stocks">
+</div></div><div class="vback"></div><i class="shade"></i></div><i class="cast"></i></div>
+<div class="view" id="v-stocks" hidden><div class="sheet"><div class="vin"><div class="vc">
+<section class="list">
   <label class="search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q" type="search" placeholder="Search TCS, Tata, banking…" aria-label="Search stocks" autocomplete="off"><span id="cnt"></span></label>
   <div class="chips" id="chips" role="group" aria-label="Filter by category"></div>
   <div class="tools"><button id="ec">✎ Edit categories</button><button id="bk">⇩ Backup and restore</button><span id="sy"></span></div>
   <div class="grid" id="grid"></div>
   <p class="note">Prices come from Upstox and refresh every few seconds while you browse. The stock list updates itself every morning. Your notes sync through your own Supabase database, so they follow you between phone and laptop.</p>
 </section>
+</div></div><div class="vback"></div><i class="shade"></i></div><i class="cast"></i></div>
+</main>
 <div class="md" id="md" hidden><div class="mb" id="mb"></div></div>
 <div class="scrim" id="scrim"></div>
 <aside class="pn" id="pn" aria-label="Stock diary page"></aside>
@@ -282,7 +335,7 @@ function grid(){
 const Q={},fm=n=>n.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});
 function paint(){document.querySelectorAll('.px').forEach(e=>{const v=Q[e.dataset.k];if(!v||v[0]==null){e.innerHTML='';e.className='px';return}const c=v[1]?(v[0]-v[1])/v[1]*100:0;e.className='px '+(c>=0?'pup':'pdn')+(e.closest('.pn')?' big':'');e.innerHTML=`₹${fm(v[0])} <small>${c>=0?'+':''}${c.toFixed(2)}%</small>`})}
 let qt=0;const qs=()=>{clearTimeout(qt);qt=setTimeout(getQ,250)};
-async function getQ(){if(!PW||!okc||document.hidden)return;const ks=[...new Set([...document.querySelectorAll('.px')].map(e=>e.dataset.k).filter(Boolean))].slice(0,100);if(!ks.length)return;
+async function getQ(){if(!PW||!okc||document.hidden||curV!=='stocks')return;const ks=[...new Set([...document.querySelectorAll('.px')].map(e=>e.dataset.k).filter(Boolean))].slice(0,100);if(!ks.length)return;
   try{const r=await api('GET','/api/quotes?keys='+ks.map(encodeURIComponent).join(','));Object.assign(Q,r.q);paint()}catch(e){}}
 setInterval(getQ,10000);
 fetch('/stocks.json').then(r=>r.ok?r.json():Promise.reject()).then(a=>{if(!Array.isArray(a)||a.length<500)return;RAW=a.map(([i,n,ns,nk,bs,bk])=>({i,n,s:ns||'BSE_'+bs,nk,bk,x:'',q:(ns+' '+bs+' '+n).toLowerCase()}));chips();grid()}).catch(()=>{});
@@ -346,7 +399,7 @@ book.addEventListener('animationend',e=>e.target.classList.remove('un'));
 function shut(go){tm.forEach(clearTimeout);tm=[];
   lf.slice().reverse().forEach((l,j)=>at(()=>{l.classList.remove('fl');l.classList.add('un')},j*260));
   at(()=>book.classList.remove('open'),5*260+1100);at(()=>{busy=false},5*260+2400);
-  if(go)at(()=>$('#stocks').scrollIntoView({behavior:'smooth'}),600)}
+  if(go)at(()=>location.hash='stocks',600)}
 function flip(){if(busy)return;busy=true;book.classList.add('open');
   lf.forEach((l,k)=>at(()=>l.classList.add('fl'),500+k*380));
   at(()=>shut(false),500+5*380+1100+7000)}
@@ -407,6 +460,42 @@ $('#sy').onclick=()=>{PW?pull(false):ask()};
 addEventListener('visibilitychange',()=>{if(!document.hidden&&PW)pull(false)});setInterval(()=>{if(!document.hidden&&PW)pull(false)},60000);
 chips();grid();
 pull(true);
+const V={home:$('#v-home'),stocks:$('#v-stocks')},ORD=['home','stocks'],MS=900,EASE='cubic-bezier(.65,.05,.25,1)';
+const nv=document.querySelector('.nav'),tabs=[...nv.querySelectorAll('.tab')],mark=nv.querySelector('.mark');
+let curV='home',busyN=false,wantV=null;
+const hashV=()=>location.hash==='#stocks'?'stocks':'home';
+function setMark(name,still){const t=tabs.find(b=>b.dataset.v===name);
+  if(still)mark.style.transition='none';
+  mark.style.width=t.offsetWidth+'px';mark.style.transform=`translateX(${t.offsetLeft}px)`;
+  tabs.forEach(b=>b===t?b.setAttribute('aria-current','page'):b.removeAttribute('aria-current'));
+  if(still){void mark.offsetWidth;mark.style.transition=''}}
+async function flip(from,to){
+  const fwd=ORD.indexOf(to)>ORD.indexOf(from),A=V[from],B=V[to],y=scrollY,tab=tabs.find(b=>b.dataset.v===to);
+  setMark(to);tab.classList.remove('pop');void tab.offsetWidth;tab.classList.add('pop');
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches){A.hidden=true;B.hidden=false;scrollTo({top:0,behavior:'instant'});return}
+  A.querySelector('.vc').style.transform=`translateY(${-y}px)`;
+  B.hidden=false;A.classList.add('flip');B.classList.add('flip');
+  A.style.zIndex=fwd?3:2;B.style.zIndex=fwd?2:3;
+  scrollTo({top:0,behavior:'instant'});
+  const mv=fwd?A:B,st=fwd?B:A,o={duration:MS,easing:EASE,fill:'both'};
+  const an=[mv.querySelector('.sheet').animate(fwd?[{transform:'rotateY(0deg)'},{transform:'rotateY(-180deg)'}]:[{transform:'rotateY(-180deg)'},{transform:'rotateY(0deg)'}],o),
+    st.querySelector('.cast').animate(fwd?[{opacity:1},{opacity:0}]:[{opacity:0},{opacity:1}],o),
+    mv.querySelector('.shade').animate(fwd?[{opacity:0},{opacity:1}]:[{opacity:1},{opacity:0}],o)];
+  try{await Promise.all(an.map(a=>a.finished))}catch(e){}
+  [A,B].forEach(v=>{v.classList.remove('flip');v.style.zIndex=''});
+  A.hidden=true;A.querySelector('.vc').style.transform='';an.forEach(a=>a.cancel())}
+async function route(first){
+  const to=hashV();
+  if(first){curV=to;V[to].hidden=false;V[ORD.find(n=>n!==to)].hidden=true;setMark(to,true);if(to==='stocks')qs();return}
+  if(busyN){wantV=to;return}
+  if(to===curV)return;
+  busyN=true;const from=curV;curV=to;
+  await flip(from,to);busyN=false;if(curV==='stocks')qs();
+  if(hashV()!==curV)route()}
+addEventListener('hashchange',()=>route());
+addEventListener('resize',()=>setMark(curV,true));
+if(document.fonts)document.fonts.ready.then(()=>setMark(curV,true));
+route(true);
 </script>
 </body>
 </html>
