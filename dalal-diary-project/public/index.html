@@ -222,11 +222,25 @@ html{color-scheme:light;background:#E3F4EA;scrollbar-width:thin;scrollbar-color:
 @supports not (scrollbar-color:auto){html::-webkit-scrollbar{width:10px}html::-webkit-scrollbar-track{background:#E3F4EA}html::-webkit-scrollbar-thumb{background:#6DC79B;border-radius:8px;border:2px solid #E3F4EA}}
 .pn,.mb{scrollbar-width:thin;scrollbar-color:#6DC79B transparent}
 .glowwrap{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:2}
+
+.dia{min-height:calc(100svh - var(--nh));padding:36px 3.5vw 90px calc(var(--ml) + 30px)}
+.dh h2{font:600 3.4rem/1 Caveat,cursive;color:#0E8F4F;margin:0}
+#dsum{font:400 1.05rem/1.6 Kalam,cursive;color:#2E5A47;margin:4px 0 0}
+.ds{display:flex;align-items:center;gap:10px;margin:30px 0 4px;font:800 1.2rem 'Bricolage Grotesque',sans-serif}
+.ds i{width:12px;height:12px;border-radius:50%;background:var(--k)}.ds b{font:600 .85rem 'DM Sans',sans-serif;color:#4C6B5C}
+.dq{font:500 1.4rem/1.15 Caveat,cursive;color:#1D4A3A;margin:8px 0 6px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere}
+.dm{font:600 .78rem/1.4 'DM Sans',sans-serif;color:#4C6B5C}
+.sn{font:700 .78rem 'DM Sans',sans-serif;margin-left:6px}.sn.u{color:#0E8F4F}.sn.d{color:#C23B52}
+.dem{font:500 1.9rem/1.2 Caveat,cursive;color:#4C6B5C;padding:40px 0;max-width:34ch}
+@media(max-width:700px){.dia{padding:28px 16px 60px 60px}.dh h2{font-size:2.8rem}.nav .brand .bt{display:none}.tab{font-size:1.15rem;padding:.2em .8em .3em}}
+.tab{white-space:nowrap}.tabs{flex:none}
+@media(max-width:700px){.tabs{padding:3px}.tab{font-size:1.1rem;padding:.2em .65em .3em}.mark{top:3px;bottom:3px}}
+@media(max-width:340px){.tab{font-size:1rem;padding:.2em .5em .3em}.nav{padding-right:6px;gap:4px}}
 </style>
 </head>
 <body>
 <header class="nav"><a class="brand" href="#home" aria-label="Dalal Diary home"><span class="lgw"><svg class="lg" viewBox="0 0 34 42" aria-hidden="true"><rect x="3" y="2" width="28" height="38" rx="3" fill="#0E8F4F"/><rect x="3" y="2" width="6" height="38" rx="3" fill="#0A6B3B"/><path d="M32 6V37" stroke="#CDE6D6" stroke-width="2"/><path d="M24 2h5v11l-2.5-2.5L24 13z" fill="#fff"/><text x="19" y="30" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="11" fill="#fff">DD</text></svg></span><span class="bt">Dalal Diary</span></a>
-<nav class="tabs" aria-label="Pages"><span class="mark" aria-hidden="true"></span><a class="tab" data-v="home" href="#home">Home</a><a class="tab" data-v="stocks" href="#stocks">Stocks</a></nav></header>
+<nav class="tabs" aria-label="Pages"><span class="mark" aria-hidden="true"></span><a class="tab" data-v="home" href="#home">Home</a><a class="tab" data-v="stocks" href="#stocks">Stocks</a><a class="tab" data-v="diary" href="#diary">My Diary</a></nav></header>
 <main id="views">
 <div class="view" id="v-home"><div class="sheet"><div class="vin"><div class="vc">
 <section class="hero">
@@ -248,6 +262,9 @@ html{color-scheme:light;background:#E3F4EA;scrollbar-width:thin;scrollbar-color:
   <div class="grid" id="grid"></div>
   <p class="note">Prices come from Upstox and refresh every few seconds while you browse. The stock list updates itself every morning. Your notes sync through your own Supabase database, so they follow you between phone and laptop.</p>
 </section>
+</div></div><div class="vback"></div><i class="shade"></i></div><i class="cast"></i></div>
+<div class="view" id="v-diary" hidden><div class="sheet"><div class="vin"><div class="vc">
+<section class="dia"><div class="dh"><h2>My Diary</h2><p id="dsum"></p></div><div id="dbody"></div></section>
 </div></div><div class="vback"></div><i class="shade"></i></div><i class="cast"></i></div>
 </main>
 <div class="md" id="md" hidden><div class="mb" id="mb"></div></div>
@@ -315,7 +332,7 @@ let cloudPush=()=>{};const save=()=>{try{localStorage.setItem('dd',JSON.stringif
 const fmt=t=>new Date(t).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
 const get=s=>db[s]||(db[s]={cat:'',log:[]});
 
-function chips(){
+function chips0(){
   const n=c=>RAW.filter(r=>(db[r.s]||{}).cat===c).length;
   const all=[['All','']].concat(CATS);
   $('#chips').innerHTML=all.map(([c,k])=>`<button class="chip" style="--k:${k}" aria-pressed="${cat===c}" data-c="${esc(c)}">${k?'<i></i>':''}${esc(c)} <b>${c==='All'?RAW.length:n(c)}</b></button>`).join('');
@@ -333,16 +350,16 @@ function grid(){
   paint();qs();
 }
 const Q={},fm=n=>n.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});
-function paint(){document.querySelectorAll('.px').forEach(e=>{const v=Q[e.dataset.k];if(!v||v[0]==null){e.innerHTML='';e.className='px';return}const c=v[1]?(v[0]-v[1])/v[1]*100:0;e.className='px '+(c>=0?'pup':'pdn')+(e.closest('.pn')?' big':'');e.innerHTML=`₹${fm(v[0])} <small>${c>=0?'+':''}${c.toFixed(2)}%</small>`})}
+function paint(){document.querySelectorAll('.sn').forEach(e=>{const v=Q[e.dataset.k],p=+e.dataset.p;if(!v||v[0]==null||!p){e.textContent='';return}const c=(v[0]-p)/p*100;e.className='sn '+(c>=0?'u':'d');e.textContent=(c>=0?'+':'')+c.toFixed(1)+'% since'});document.querySelectorAll('.px').forEach(e=>{const v=Q[e.dataset.k];if(!v||v[0]==null){e.innerHTML='';e.className='px';return}const c=v[1]?(v[0]-v[1])/v[1]*100:0;e.className='px '+(c>=0?'pup':'pdn')+(e.closest('.pn')?' big':'');e.innerHTML=`₹${fm(v[0])} <small>${c>=0?'+':''}${c.toFixed(2)}%</small>`})}
 let qt=0;const qs=()=>{clearTimeout(qt);qt=setTimeout(getQ,250)};
-async function getQ(){if(!PW||!okc||document.hidden||curV!=='stocks')return;const ks=[...new Set([...document.querySelectorAll('.px')].map(e=>e.dataset.k).filter(Boolean))].slice(0,100);if(!ks.length)return;
+async function getQ(){if(!PW||!okc||document.hidden||curV==='home')return;const ks=[...new Set([...document.querySelectorAll('.view:not([hidden]) .px,.pn .px')].map(e=>e.dataset.k).filter(Boolean))].slice(0,100);if(!ks.length)return;
   try{const r=await api('GET','/api/quotes?keys='+ks.map(encodeURIComponent).join(','));Object.assign(Q,r.q);paint()}catch(e){}}
 setInterval(getQ,10000);
 fetch('/stocks.json').then(r=>r.ok?r.json():Promise.reject()).then(a=>{if(!Array.isArray(a)||a.length<500)return;RAW=a.map(([i,n,ns,nk,bs,bk])=>({i,n,s:ns||'BSE_'+bs,nk,bk,x:'',q:(ns+' '+bs+' '+n).toLowerCase()}));chips();grid()}).catch(()=>{});
 function panel(){panel0();paint();qs()}
 function panel0(){
   const r=RAW.find(x=>x.s===cur),d=get(cur);
-  const log=d.log.slice().reverse().map(e=>e.t==='move'?`<div class="en"><time>${fmt(e.d)}</time><div class="mv" style="--k:${kc(e.c)}"><i></i>${e.c?'Moved to '+esc(e.c):'Removed from category'}</div>${e.w?`<p>${esc(e.w)}</p>`:''}</div>`:`<div class="en"><time>${fmt(e.d)}</time><p>${esc(e.x)}</p></div>`).join('');
+  const log=d.log.slice().reverse().map(e=>e.t==='move'?`<div class="en"><time>${stamp(e)}</time>${snEl(r,e.p)}<div class="mv" style="--k:${kc(e.c)}"><i></i>${e.c?'Moved to '+esc(e.c):'Removed from category'}</div>${e.w?`<p>${esc(e.w)}</p>`:''}</div>`:`<div class="en"><time>${stamp(e)}</time>${snEl(r,e.p)}<p>${esc(e.x)}</p></div>`).join('');
   $('#pn').innerHTML=`<button class="x" aria-label="Close" id="cl">&times;</button><div class="tk">${esc(r.s)}</div><h2>${esc(r.n)}</h2><div class="sec">${r.x?esc(r.x)+', ':''}listed on ${r.nk&&r.bk?'NSE and BSE':r.nk?'NSE only':r.bk?'BSE only':'NSE and BSE'}</div>
   <div class="px" data-k="${esc(kk(r))}"></div>
   <div class="lb">Where does it stand?</div><div class="cc">${CATS.map(([c,k])=>`<button class="cb" style="--k:${k}" aria-pressed="${(pend||d.cat)===c}" data-m="${esc(c)}">${esc(c)}</button>`).join('')}${d.cat?'<button class="cb clr" data-m="">Clear</button>':''}</div>
@@ -359,12 +376,12 @@ $('#grid').addEventListener('mousemove',e=>{const c=e.target.closest('.card');if
 $('#grid').addEventListener('mouseout',e=>{const c=e.target.closest('.card');if(c){c.style.setProperty('--rx','0deg');c.style.setProperty('--ry','0deg')}});
 $('#scrim').addEventListener('click',close);
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&cur)close()});
-$('#pn').addEventListener('click',e=>{
+$('#pn').addEventListener('click',async e=>{
   const t=e.target,d=cur&&get(cur);
   if(t.id==='cl')close();
   else if(t.dataset.m!==undefined&&t.classList.contains('cb')){pend=t.dataset.m;panel();const w=$('#why');if(w)w.focus()}
-  else if(t.id==='mv'){d.cat=pend;d.log.push({t:'move',c:pend,w:$('#why').value.trim(),d:Date.now()});pend=null;save();panel()}
-  else if(t.id==='an'){const v=$('#nt').value.trim();if(!v)return;d.log.push({t:'note',x:v,d:Date.now()});save();panel()}
+  else if(t.id==='mv'){const sym=cur,c=pend,w=$('#why').value.trim(),p=await priceOf(sym);d.cat=c;d.log.push(Object.assign({t:'move',c,w,d:Date.now()},p!=null?{p}:{}));pend=null;save();if(cur===sym)panel()}
+  else if(t.id==='an'){const v=$('#nt').value.trim();if(!v)return;const sym=cur,p=await priceOf(sym);d.log.push(Object.assign({t:'note',x:v,d:Date.now()},p!=null?{p}:{}));save();if(cur===sym)panel()}
 });
 const book=$('#book'),st=$('#stage');
 const R=n=>{const x=Math.sin(n*127.1+1.3)*43758.5;return x-Math.floor(x)};
@@ -418,7 +435,7 @@ const md=$('#md'),mb=$('#mb');
 const shut2=()=>{md.hidden=true;chips();grid();if(cur)panel()};
 function ec(){mb.innerHTML=`<h3>Edit categories</h3><p>Rename a category and every stock in it follows. Removing one keeps all your notes.</p>`+CATS.map((c,i)=>`<div class="cr"><i style="background:${c[1]}"></i><input value="${esc(c[0])}" data-i="${i}" aria-label="Category name"><button class="b x2" data-del="${i}">Remove</button></div>`).join('')+`<div class="cr"><i style="background:${PAL[CATS.length%PAL.length]}"></i><input id="nc" placeholder="New category, for example Dividend Ideas"><button class="b" id="ad">Add</button></div><button class="b x2" id="dn">Done</button>`;md.hidden=false}
 function bk(){const j=JSON.stringify({v:1,cats:CATS,db});mb.innerHTML=`<h3>Backup and restore</h3><p>Downloads are blocked on this page, so copy the text and keep it in a note or an email to yourself.</p><textarea id="bt" readonly>${esc(j)}</textarea><button class="b" id="cp">Copy backup</button><button class="b x2" id="cx">Copy as Excel table</button><span id="ms"></span><h3 style="margin-top:18px">Restore</h3><p>Paste a backup below. It replaces what is saved in this browser.</p><textarea id="rt" placeholder="Paste backup here"></textarea><button class="b" id="rs">Restore</button><button class="b x2" id="dn">Close</button>`;md.hidden=false}
-const tsv=()=>['Symbol\tName\tSector\tCategory\tNotes'].concat(RAW.filter(r=>db[r.s]&&(db[r.s].cat||db[r.s].log.length)).map(r=>{const d=db[r.s];return [r.s,r.n,r.x,d.cat,d.log.map(e=>fmt(e.d)+': '+(e.t==='note'?e.x:(e.c?'moved to '+e.c:'cleared')+(e.w?' ('+e.w+')':''))).join(' | ').replace(/\t|\n/g,' ')].join('\t').replace(/^(.*?\t.*?\t.*?\t)/,'$1')})).join('\n');
+const tsv=()=>['Symbol\tName\tSector\tCategory\tNotes'].concat(RAW.filter(r=>db[r.s]&&(db[r.s].cat||db[r.s].log.length)).map(r=>{const d=db[r.s];return [r.s,r.n,r.x,d.cat,d.log.map(e=>stamp(e)+': '+(e.t==='note'?e.x:(e.c?'moved to '+e.c:'cleared')+(e.w?' ('+e.w+')':''))).join(' | ').replace(/\t|\n/g,' ')].join('\t').replace(/^(.*?\t.*?\t.*?\t)/,'$1')})).join('\n');
 async function cp(txt){const t=$('#bt');t.value=txt;t.select();let ok=false;try{await navigator.clipboard.writeText(txt);ok=true}catch(e){try{ok=document.execCommand('copy')}catch(e2){}}$('#ms').textContent=ok?' Copied':' Select the text and copy it'}
 $('#ec').onclick=ec;$('#bk').onclick=bk;
 md.addEventListener('click',e=>{const t=e.target;
@@ -460,10 +477,28 @@ $('#sy').onclick=()=>{PW?pull(false):ask()};
 addEventListener('visibilitychange',()=>{if(!document.hidden&&PW)pull(false)});setInterval(()=>{if(!document.hidden&&PW)pull(false)},60000);
 chips();grid();
 pull(true);
-const V={home:$('#v-home'),stocks:$('#v-stocks')},ORD=['home','stocks'],MS=900,EASE='cubic-bezier(.65,.05,.25,1)';
+let RM=null,RMs=null;const rget=sym=>{if(RMs!==RAW){RM=new Map(RAW.map(r=>[r.s,r]));RMs=RAW}return RM.get(sym)};
+async function priceOf(sym){const r=rget(sym),k=r&&kk(r);if(!k)return null;if(Q[k]&&Q[k][0]!=null)return Q[k][0];
+  try{const x=await Promise.race([api('GET','/api/quotes?keys='+encodeURIComponent(k)),new Promise((_,j)=>setTimeout(j,2000))]);Object.assign(Q,x.q);return Q[k]&&Q[k][0]!=null?Q[k][0]:null}catch(e){return null}}
+const stamp=e=>fmt(e.d)+(e.p?' at ₹'+fm(e.p):'');
+const snEl=(r,p)=>p&&kk(r)?`<small class="sn" data-k="${esc(kk(r))}" data-p="${p}"></small>`:'';
+function renderDiary(){
+  const keys=Object.keys(db).filter(k=>db[k]&&(db[k].cat||db[k].log.length)),last=k=>db[k].log.length?db[k].log[db[k].log.length-1].d:0;
+  const by={};keys.forEach(k=>{(by[db[k].cat||'']=by[db[k].cat||'']||[]).push(k)});
+  const groups=CATS.map(c=>[c[0],by[c[0]]||[]]).concat([['',by['']||[]]]).filter(g=>g[1].length);
+  $('#dsum').textContent=keys.length?keys.length+(keys.length>1?' stocks':' stock')+' in your diary, newest activity first.':'';
+  $('#dbody').innerHTML=groups.length?groups.map(([c,ks])=>`<div class="ds" style="--k:${kc(c)||'#8DB8A2'}"><i></i>${c?esc(c):'Notes without a category'} <b>${ks.length}</b></div><div class="grid">`+ks.sort((a,b)=>last(b)-last(a)).map(k=>{
+    const r=rget(k)||{s:k,n:k,x:'',nk:'',bk:''},d=db[k],e=d.log[d.log.length-1],txt=e?(e.t==='note'?e.x:(e.c?'Moved to '+e.c:'Cleared category')+(e.w?': '+e.w:'')):'';
+    return `<button class="card" data-s="${esc(r.s)}" style="--k:${kc(d.cat)}"><div class="tk">${esc(r.s.replace(/^BSE_/,''))}</div><h3>${esc(r.n)}</h3><div class="px" data-k="${esc(kk(r))}"></div><p class="dq">${esc(txt)}</p>${e?`<div class="dm">${stamp(e)}${snEl(r,e.p)}</div>`:''}</button>`}).join('')+'</div>').join(''):`<p class="dem">Nothing here yet. Open any stock, pick a category and write down why.</p>`;
+  paint()}
+$('#dbody').addEventListener('click',e=>{const c=e.target.closest('.card');if(c)open(c.dataset.s)});
+$('#dbody').addEventListener('mousemove',e=>{const c=e.target.closest('.card');if(!c)return;const b=c.getBoundingClientRect();c.style.setProperty('--ry',((e.clientX-b.left)/b.width-.5)*10+'deg');c.style.setProperty('--rx',(.5-(e.clientY-b.top)/b.height)*10+'deg')});
+$('#dbody').addEventListener('mouseout',e=>{const c=e.target.closest('.card');if(c){c.style.setProperty('--rx','0deg');c.style.setProperty('--ry','0deg')}});
+function chips(){chips0();renderDiary()}
+const V={home:$('#v-home'),stocks:$('#v-stocks'),diary:$('#v-diary')},ORD=['home','stocks','diary'],MS=900,EASE='cubic-bezier(.65,.05,.25,1)';
 const nv=document.querySelector('.nav'),tabs=[...nv.querySelectorAll('.tab')],mark=nv.querySelector('.mark');
 let curV='home',busyN=false,wantV=null;
-const hashV=()=>location.hash==='#stocks'?'stocks':'home';
+const hashV=()=>location.hash==='#stocks'?'stocks':location.hash==='#diary'?'diary':'home';
 function setMark(name,still){const t=tabs.find(b=>b.dataset.v===name);
   if(still)mark.style.transition='none';
   mark.style.width=t.offsetWidth+'px';mark.style.transform=`translateX(${t.offsetLeft}px)`;
@@ -486,11 +521,11 @@ async function flip(from,to){
   A.hidden=true;A.querySelector('.vc').style.transform='';an.forEach(a=>a.cancel())}
 async function route(first){
   const to=hashV();
-  if(first){curV=to;V[to].hidden=false;V[ORD.find(n=>n!==to)].hidden=true;setMark(to,true);if(to==='stocks')qs();return}
+  if(first){curV=to;ORD.forEach(n=>{V[n].hidden=n!==to});setMark(to,true);if(to!=='home')qs();return}
   if(busyN){wantV=to;return}
   if(to===curV)return;
   busyN=true;const from=curV;curV=to;
-  await flip(from,to);busyN=false;if(curV==='stocks')qs();
+  await flip(from,to);busyN=false;if(curV!=='home')qs();
   if(hashV()!==curV)route()}
 addEventListener('hashchange',()=>route());
 addEventListener('resize',()=>setMark(curV,true));
