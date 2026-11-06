@@ -236,6 +236,7 @@ html{color-scheme:light;background:#E3F4EA;scrollbar-width:thin;scrollbar-color:
 .tab{white-space:nowrap}.tabs{flex:none}
 @media(max-width:700px){.tabs{padding:3px}.tab{font-size:1.1rem;padding:.2em .65em .3em}.mark{top:3px;bottom:3px}}
 @media(max-width:340px){.tab{font-size:1rem;padding:.2em .5em .3em}.nav{padding-right:6px;gap:4px}}
+.book{pointer-events:none}.book>.bb,.book>.lf{pointer-events:auto}
 </style>
 </head>
 <body>
@@ -475,8 +476,6 @@ const push=()=>{if(!okc)return;clearTimeout(t2);t2=setTimeout(async()=>{t2=0;sy(
 cloudPush=push;
 $('#sy').onclick=()=>{PW?pull(false):ask()};
 addEventListener('visibilitychange',()=>{if(!document.hidden&&PW)pull(false)});setInterval(()=>{if(!document.hidden&&PW)pull(false)},60000);
-chips();grid();
-pull(true);
 let RM=null,RMs=null;const rget=sym=>{if(RMs!==RAW){RM=new Map(RAW.map(r=>[r.s,r]));RMs=RAW}return RM.get(sym)};
 async function priceOf(sym){const r=rget(sym),k=r&&kk(r);if(!k)return null;if(Q[k]&&Q[k][0]!=null)return Q[k][0];
   try{const x=await Promise.race([api('GET','/api/quotes?keys='+encodeURIComponent(k)),new Promise((_,j)=>setTimeout(j,2000))]);Object.assign(Q,x.q);return Q[k]&&Q[k][0]!=null?Q[k][0]:null}catch(e){return null}}
@@ -494,7 +493,7 @@ function renderDiary(){
 $('#dbody').addEventListener('click',e=>{const c=e.target.closest('.card');if(c)open(c.dataset.s)});
 $('#dbody').addEventListener('mousemove',e=>{const c=e.target.closest('.card');if(!c)return;const b=c.getBoundingClientRect();c.style.setProperty('--ry',((e.clientX-b.left)/b.width-.5)*10+'deg');c.style.setProperty('--rx',(.5-(e.clientY-b.top)/b.height)*10+'deg')});
 $('#dbody').addEventListener('mouseout',e=>{const c=e.target.closest('.card');if(c){c.style.setProperty('--rx','0deg');c.style.setProperty('--ry','0deg')}});
-function chips(){chips0();renderDiary()}
+function chips(){chips0();try{renderDiary()}catch(e){console.error('diary render failed',e)}}
 const V={home:$('#v-home'),stocks:$('#v-stocks'),diary:$('#v-diary')},ORD=['home','stocks','diary'],MS=900,EASE='cubic-bezier(.65,.05,.25,1)';
 const nv=document.querySelector('.nav'),tabs=[...nv.querySelectorAll('.tab')],mark=nv.querySelector('.mark');
 let curV='home',busyN=false,wantV=null;
@@ -504,7 +503,7 @@ function setMark(name,still){const t=tabs.find(b=>b.dataset.v===name);
   mark.style.width=t.offsetWidth+'px';mark.style.transform=`translateX(${t.offsetLeft}px)`;
   tabs.forEach(b=>b===t?b.setAttribute('aria-current','page'):b.removeAttribute('aria-current'));
   if(still){void mark.offsetWidth;mark.style.transition=''}}
-async function flip(from,to){
+async function turnPage(from,to){
   const fwd=ORD.indexOf(to)>ORD.indexOf(from),A=V[from],B=V[to],y=scrollY,tab=tabs.find(b=>b.dataset.v===to);
   setMark(to);tab.classList.remove('pop');void tab.offsetWidth;tab.classList.add('pop');
   if(matchMedia('(prefers-reduced-motion:reduce)').matches){A.hidden=true;B.hidden=false;scrollTo({top:0,behavior:'instant'});return}
@@ -525,12 +524,14 @@ async function route(first){
   if(busyN){wantV=to;return}
   if(to===curV)return;
   busyN=true;const from=curV;curV=to;
-  await flip(from,to);busyN=false;if(curV!=='home')qs();
+  await turnPage(from,to);busyN=false;if(curV!=='home')qs();
   if(hashV()!==curV)route()}
 addEventListener('hashchange',()=>route());
 addEventListener('resize',()=>setMark(curV,true));
 if(document.fonts)document.fonts.ready.then(()=>setMark(curV,true));
 route(true);
+chips();grid();
+pull(true);
 </script>
 </body>
 </html>
