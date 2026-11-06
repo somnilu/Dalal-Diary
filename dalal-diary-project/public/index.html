@@ -237,6 +237,24 @@ html{color-scheme:light;background:#E3F4EA;scrollbar-width:thin;scrollbar-color:
 @media(max-width:700px){.tabs{padding:3px}.tab{font-size:1.1rem;padding:.2em .65em .3em}.mark{top:3px;bottom:3px}}
 @media(max-width:340px){.tab{font-size:1rem;padding:.2em .5em .3em}.nav{padding-right:6px;gap:4px}}
 .book{pointer-events:none}.book>.bb,.book>.lf{pointer-events:auto}
+
+.fd{margin-top:16px;border-top:2px dashed #CDE6D6;padding-top:6px}
+.fd summary{font:600 1.8rem/1.2 Caveat,cursive;color:#0E8F4F;cursor:pointer;list-style:none}.fd summary::-webkit-details-marker{display:none}
+.fd summary::after{content:" ▾";font-size:1rem;color:#8DB8A2}.fd:not([open]) summary::after{content:" ▸"}
+.fsec{margin:2px 0 4px;font:600 .9rem 'DM Sans',sans-serif;color:#4C6B5C}
+.fdesc{margin:0 0 6px;font:500 .84rem/1.5 'DM Sans',sans-serif;color:#2E5A47;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;cursor:pointer}.fdesc.fdx{-webkit-line-clamp:unset;display:block}
+.lb2{margin:16px 0 6px;font:800 .9rem 'DM Sans',sans-serif}.lb2 span{font-weight:600;color:#4C6B5C;margin-left:6px;font-size:.78rem}
+.rg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.rt{background:#fff;border:1px solid #CDE6D6;border-radius:10px 10px 10px 3px;padding:8px 10px;display:flex;flex-direction:column;gap:1px}
+.rt small{font:700 .72rem 'DM Sans',sans-serif;color:#4C6B5C}.rt b{font:700 1.2rem 'Bricolage Grotesque',sans-serif}.rt span{font:600 .7rem 'DM Sans',sans-serif;color:#4C6B5C}
+.sb{display:flex;height:16px;border-radius:8px;overflow:hidden;border:1px solid #CDE6D6;background:#fff}.sb i{display:block;min-width:2px}
+.sl{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:8px;font:600 .78rem 'DM Sans',sans-serif}.sl span{display:inline-flex;align-items:center;gap:5px}.sl i{width:9px;height:9px;border-radius:50%;border:1px solid #0B3D2E33}
+.sl small,.ft small{font:700 .68rem 'DM Sans',sans-serif}.sl small.u,.ft small.u{color:#0E8F4F}.sl small.d,.ft small.d{color:#C23B52}
+.tw{overflow-x:auto}.ft{width:100%;border-collapse:collapse;font:600 .8rem 'DM Sans',sans-serif;min-width:400px}
+.ft th{text-align:right;font-weight:700;color:#4C6B5C;padding:3px 6px;font-size:.72rem}.ft td{padding:5px 6px;border-top:1px solid #CDE6D6;text-align:right;vertical-align:top;white-space:nowrap}
+.ft td:first-child{text-align:left;text-transform:capitalize;color:#4C6B5C;white-space:normal}.ft td small{display:block}
+.fn,.fload{margin:8px 0 0;font:500 .72rem/1.4 'DM Sans',sans-serif;color:#6E8C7C}.fload{font:500 1.4rem Caveat,cursive;color:#4C6B5C}
+.fn.big{font-size:.85rem}
 </style>
 </head>
 <body>
@@ -357,13 +375,13 @@ async function getQ(){if(!PW||!okc||document.hidden||curV==='home')return;const 
   try{const r=await api('GET','/api/quotes?keys='+ks.map(encodeURIComponent).join(','));Object.assign(Q,r.q);paint()}catch(e){}}
 setInterval(getQ,10000);
 fetch('/stocks.json').then(r=>r.ok?r.json():Promise.reject()).then(a=>{if(!Array.isArray(a)||a.length<500)return;RAW=a.map(([i,n,ns,nk,bs,bk])=>({i,n,s:ns||'BSE_'+bs,nk,bk,x:'',q:(ns+' '+bs+' '+n).toLowerCase()}));chips();grid()}).catch(()=>{});
-function panel(){panel0();paint();qs()}
+function panel(){panel0();paint();qs();fund()}
 function panel0(){
   const r=RAW.find(x=>x.s===cur),d=get(cur);
   const log=d.log.slice().reverse().map(e=>e.t==='move'?`<div class="en"><time>${stamp(e)}</time>${snEl(r,e.p)}<div class="mv" style="--k:${kc(e.c)}"><i></i>${e.c?'Moved to '+esc(e.c):'Removed from category'}</div>${e.w?`<p>${esc(e.w)}</p>`:''}</div>`:`<div class="en"><time>${stamp(e)}</time>${snEl(r,e.p)}<p>${esc(e.x)}</p></div>`).join('');
   $('#pn').innerHTML=`<button class="x" aria-label="Close" id="cl">&times;</button><div class="tk">${esc(r.s)}</div><h2>${esc(r.n)}</h2><div class="sec">${r.x?esc(r.x)+', ':''}listed on ${r.nk&&r.bk?'NSE and BSE':r.nk?'NSE only':r.bk?'BSE only':'NSE and BSE'}</div>
   <div class="px" data-k="${esc(kk(r))}"></div>
-  <div class="lb">Where does it stand?</div><div class="cc">${CATS.map(([c,k])=>`<button class="cb" style="--k:${k}" aria-pressed="${(pend||d.cat)===c}" data-m="${esc(c)}">${esc(c)}</button>`).join('')}${d.cat?'<button class="cb clr" data-m="">Clear</button>':''}</div>
+  ${r.i?'<details class="fd"'+(fdOpen()?' open':'')+'><summary>Fundamentals</summary><div id="fd"></div></details>':''}<div class="lb">Where does it stand?</div><div class="cc">${CATS.map(([c,k])=>`<button class="cb" style="--k:${k}" aria-pressed="${(pend||d.cat)===c}" data-m="${esc(c)}">${esc(c)}</button>`).join('')}${d.cat?'<button class="cb clr" data-m="">Clear</button>':''}</div>
   ${pend!==null&&pend!==d.cat?`<div class="lb">Why ${pend?'move it to '+esc(pend):'clear the category'}?</div><textarea id="why" placeholder="One line is enough."></textarea><button class="btn" id="mv">Save move</button>`:''}
   <div class="lb">Add a note</div><textarea id="nt" placeholder="What are you thinking about this company?"></textarea><button class="btn" id="an">Add note</button>
   <div class="tl">${log||'<div class="en"><p style="color:#8DB8A2">Your dated notes will appear here.</p></div>'}</div>`;
@@ -493,6 +511,33 @@ function renderDiary(){
 $('#dbody').addEventListener('click',e=>{const c=e.target.closest('.card');if(c)open(c.dataset.s)});
 $('#dbody').addEventListener('mousemove',e=>{const c=e.target.closest('.card');if(!c)return;const b=c.getBoundingClientRect();c.style.setProperty('--ry',((e.clientX-b.left)/b.width-.5)*10+'deg');c.style.setProperty('--rx',(.5-(e.clientY-b.top)/b.height)*10+'deg')});
 $('#dbody').addEventListener('mouseout',e=>{const c=e.target.closest('.card');if(c){c.style.setProperty('--rx','0deg');c.style.setProperty('--ry','0deg')}});
+const FD={},FDKEY='ddf:';
+const cr=v=>v==null||isNaN(v)?'–':Math.abs(v)>=1e5?'₹'+(v/1e5).toLocaleString('en-IN',{maximumFractionDigits:2})+' L Cr':'₹'+Number(v).toLocaleString('en-IN',{maximumFractionDigits:Math.abs(v)<100?2:0})+' Cr';
+const chg=c=>c?`<small class="${String(c).trim().startsWith('-')?'d':'u'}">${esc(String(c))}</small>`:'';
+const HC={promoters:['Promoters','#0B5D3B'],fii:['FIIs','#1FBF73'],other_dii:['Other DIIs','#7ED9A0'],mutual_funds:['Mutual funds','#3E8FD1'],retail_and_other:['Retail and others','#CDE6D6']};
+const hc=k=>HC[k]||[String(k||'').replace(/_/g,' '),'#8DB8A2'];
+function fundRender(d){
+  if(!d||!(d.prof||(d.ratios&&d.ratios.length)||(d.hold&&d.hold.length)||d.inc||d.bs))return '<p class="fn big">Fundamentals are not available for this company yet. Smaller or recently listed companies sometimes have no data.</p>';
+  let h='';
+  if(d.prof&&(d.prof.sec||d.prof.t))h+=(d.prof.sec?`<p class="fsec">Sector: ${esc(d.prof.sec)}</p>`:'')+(d.prof.t?`<p class="fdesc">${esc(d.prof.t)}</p>`:'');
+  if(d.ratios&&d.ratios.length)h+=`<div class="lb2">Key ratios <span>company vs sector</span></div><div class="rg">`+d.ratios.map(x=>`<div class="rt"><small>${esc(x.n)}</small><b>${esc(x.c||'–')}</b><span>sector ${esc(x.s||'–')}</span></div>`).join('')+'</div>';
+  const hs=(d.hold||[]).filter(c=>c.h&&c.h.length);
+  if(hs.length){h+=`<div class="lb2">Who owns it <span>${esc(hs[0].h[0].p||'')}</span></div><div class="sb">`+hs.map(c=>`<i style="flex:${Math.max(c.h[0].v,0)};background:${hc(c.k)[1]}" title="${esc(hc(c.k)[0])} ${c.h[0].v}%"></i>`).join('')+'</div><div class="sl">'+hs.map(c=>{const a=c.h[0],b=c.h[1],dv=b?+(a.v-b.v).toFixed(2):0;return `<span><i style="background:${hc(c.k)[1]}"></i>${esc(hc(c.k)[0])} <b>${a.v}%</b>${dv?`<small class="${dv<0?'d':'u'}">${dv>0?'+':''}${dv}</small>`:''}</span>`}).join('')+'</div><div class="fn">Small numbers show the change since the previous quarter, in percentage points.</div>'}
+  if(d.inc&&d.inc.rows&&d.inc.rows.length){const per=(d.inc.rows[0].h||[]).slice(0,4);h+=`<div class="lb2">Profit and loss <span>${esc(d.inc.type||'')}, yearly</span></div><div class="tw"><table class="ft"><tr><th></th>${per.map(x=>`<th>${esc(x.p)}</th>`).join('')}</tr>`+d.inc.rows.map(r=>`<tr><td>${esc(String(r.k||'').replace(/_/g,' '))}</td>${per.map((x,i)=>{const y=(r.h||[])[i];return `<td>${y?cr(y.v)+chg(y.ch):'–'}</td>`}).join('')}</tr>`).join('')+'</table></div>'}
+  if(d.bs&&d.bs.h&&d.bs.h.length){const per=d.bs.h.slice(0,4);h+=`<div class="lb2">Balance sheet <span>${esc(d.bs.type||'')}</span></div><div class="tw"><table class="ft"><tr><th></th>${per.map(x=>`<th>${esc(x.p)}</th>`).join('')}</tr><tr><td>Total assets</td>${per.map(x=>`<td>${cr(x.a)}</td>`).join('')}</tr><tr><td>Total liabilities</td>${per.map(x=>`<td>${cr(x.l)}</td>`).join('')}</tr><tr><td>Assets minus liabilities</td>${per.map(x=>`<td>${cr(x.a-x.l)}</td>`).join('')}</tr></table></div>`}
+  return h+'<div class="fn">Source: Upstox. Money is in ₹ crore (L Cr means lakh crore). Updated after each quarterly result.</div>'}
+async function fund(){
+  const sym=cur,r=sym&&rget(sym);if(!r||!r.i||!$('#fd'))return;
+  const put=h=>{if(cur===sym&&$('#fd'))$('#fd').innerHTML=h};
+  if(FD[r.i]){put(FD[r.i]);return}
+  let d=null;try{const c=JSON.parse(localStorage.getItem(FDKEY+r.i)||'null');if(c&&Date.now()-c.t<432e5)d=c.d}catch(e){}
+  if(!d){put('<p class="fload">Loading fundamentals…</p>');
+    try{d=await api('GET','/api/fundamentals?isin='+encodeURIComponent(r.i));try{localStorage.setItem(FDKEY+r.i,JSON.stringify({t:Date.now(),d}))}catch(e){}}
+    catch(e){put('<p class="fn big">Could not load fundamentals right now. Close this page and open it again in a moment.</p>');return}}
+  const h=fundRender(d);FD[r.i]=h;put(h)}
+document.addEventListener('click',e=>{const f=e.target.closest&&e.target.closest('.fdesc');if(f)f.classList.toggle('fdx')});
+const fdOpen=()=>{try{return localStorage.getItem('ddfo')!=='0'}catch(e){return true}};
+document.addEventListener('toggle',e=>{if(e.target.classList&&e.target.classList.contains('fd')){try{localStorage.setItem('ddfo',e.target.open?'1':'0')}catch(_){}}},true);
 function chips(){chips0();try{renderDiary()}catch(e){console.error('diary render failed',e)}}
 const V={home:$('#v-home'),stocks:$('#v-stocks'),diary:$('#v-diary')},ORD=['home','stocks','diary'],MS=900,EASE='cubic-bezier(.65,.05,.25,1)';
 const nv=document.querySelector('.nav'),tabs=[...nv.querySelectorAll('.tab')],mark=nv.querySelector('.mark');
