@@ -5,7 +5,7 @@ const te=new TextEncoder();
 async function same(a,b){const[x,y]=await Promise.all([crypto.subtle.digest('SHA-256',te.encode(a)),crypto.subtle.digest('SHA-256',te.encode(b))]);const u=new Uint8Array(x),v=new Uint8Array(y);let d=0;for(let i=0;i<u.length;i++)d|=u[i]^v[i];return d===0}
 function sb(env,path,init={}){const k=env.SUPABASE_SECRET_KEY,h={apikey:k,'content-type':'application/json',...(init.headers||{})};if(k.startsWith('eyJ'))h.authorization='Bearer '+k;return fetch(env.SUPABASE_URL.replace(/\/+$/,'')+'/rest/v1/'+path,{...init,headers:h})}
 const memo=new Map(),KEY=/^[A-Z_]{3,12}\|[A-Za-z0-9&._-]{1,30}$/;
-const FU='https://api.upstox.com/v2/fundamentals/',fmemo=new Map();
+const cmemo=new Map(),FU='https://api.upstox.com/v2/fundamentals/',fmemo=new Map();
 async function up(env,isin,path){try{const r=await fetch(FU+isin+'/'+path,{headers:{accept:'application/json',authorization:'Bearer '+env.UPSTOX_ANALYTICS_TOKEN}});if(!r.ok)return{err:r.status};const b=await r.json();return b&&b.status==='success'&&b.data!=null?{d:b.data}:{err:'empty'}}catch(e){return{err:'failed'}}}
 const okI=d=>d&&Array.isArray(d.income_statement)&&d.income_statement.some(c=>c&&c.history&&c.history.length),okB=d=>d&&Array.isArray(d.history)&&d.history.length;
 // consolidated first; many smaller companies only report standalone, so fall back to that
@@ -35,6 +35,16 @@ export default{
         for(const k in b.data||{}){const d=b.data[k];q[d.instrument_token]=[d.last_price,d.cp,d.volume]}
         const out={q};memo.set(id,{t:Date.now(),d:out});if(memo.size>50)memo.delete(memo.keys().next().value);
         return J(out)}
+      if(p==='/api/candles'&&req.method==='GET'){
+        if(!env.UPSTOX_ANALYTICS_TOKEN)return J({error:'prices not configured'},501);
+        const key=u.searchParams.get('key')||'';if(!KEY.test(key))return J({error:'bad key'},400);
+        const hit=cmemo.get(key);if(hit&&Date.now()-hit.t<6e5)return J(hit.d);
+        const ist=n=>new Date(Date.now()+19800000-n*864e5).toISOString().slice(0,10);
+        const r=await fetch('https://api.upstox.com/v3/historical-candle/'+encodeURIComponent(key)+'/days/1/'+ist(0)+'/'+ist(372),{headers:{accept:'application/json',authorization:'Bearer '+env.UPSTOX_ANALYTICS_TOKEN}});
+        if(!r.ok)return J({error:'price history error',status:r.status},502);
+        const b=await r.json(),rows=((b.data&&b.data.candles)||[]).filter(x=>Array.isArray(x)&&x.length>=5&&isFinite(x[4])).map(x=>[String(x[0]).slice(0,10),+x[4],+x[2],+x[3]]).sort((a,b)=>a[0]<b[0]?-1:a[0]>b[0]?1:0);
+        const out={c:rows};if(rows.length){cmemo.set(key,{t:Date.now(),d:out});if(cmemo.size>60)cmemo.delete(cmemo.keys().next().value)}
+        return J(out)}
       if(p==='/api/fundamentals'&&req.method==='GET'){
         if(!env.UPSTOX_ANALYTICS_TOKEN)return J({error:'prices not configured'},501);
         const isin=u.searchParams.get('isin')||'';if(!/^IN[A-Z0-9]{10}$/.test(isin))return J({error:'bad isin'},400);
@@ -43,7 +53,7 @@ export default{
         const errs=[pr,kr,sh,inc,bs].map(x=>x.err).filter(Boolean);
         if(errs.length===5)return J({error:'fundamentals unavailable',status:errs[0]},502);
         const out={isin,t:Date.now(),
-          prof:pr.d&&typeof pr.d==='object'?{t:pr.d.company_profile||'',sec:pr.d.sector||''}:null,
+          prof:pr.d&&typeof pr.d==='object'?{t:pr.d.company_profile||'',sec:pr.d.sector||'',smc:pr.d.sector_market_cap_inr&&typeof pr.d.sector_market_cap_inr.value==='number'?{v:pr.d.sector_market_cap_inr.value}:null}:null,
           ratios:Array.isArray(kr.d)?kr.d.map(x=>({n:x.name,c:x.company_value,s:x.sector_value})):null,
           hold:Array.isArray(sh.d)?sh.d.map(x=>({k:x.category,h:(x.history||[]).slice(0,6).map(y=>({p:y.period,v:y.value}))})):null,
           inc:inc.d&&okI(inc.d)?{type:inc.d.type,rows:inc.d.income_statement.map(c=>({k:c.category,h:(c.history||[]).slice(0,5).map(y=>({p:y.period,v:y.value,ch:y.change||''}))}))}:null,
