@@ -6,7 +6,7 @@
 <title>Dalal Diary</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Caveat:wght@500;600;700&family=Kalam:wght@400;700&family=Reenie+Beanie&family=Gochi+Hand&family=Indie+Flower&family=Dancing+Script:wght@600&family=Permanent+Marker&family=Shadows+Into+Light&family=Homemade+Apple&family=DM+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Caveat:wght@500;600;700&family=Kalam:wght@400;700&family=Reenie+Beanie&family=Gochi+Hand&family=Indie+Flower&family=Dancing+Script:wght@600&family=Permanent+Marker&family=Shadows+Into+Light&family=Homemade+Apple&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#FCFFFD;--bg2:#E3F4EA;--card:#fff;--line:#CDE6D6;--text:#0C2B20;--mut:#4C6B5C;--gold:#16A860;--ml:78px;--grid:#0C2B2010;--sh:0 16px 30px -18px #0C5A3A77;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
@@ -262,21 +262,21 @@ html{color-scheme:light;background:#E3F4EA;scrollbar-width:thin;scrollbar-color:
 .dkw{position:absolute;left:50%;top:50%;width:var(--W);height:var(--H);margin:calc(var(--H)/-2) 0 0 calc(var(--W)/-2);transition:transform .9s var(--ease),filter .6s}
 .dk{position:absolute;inset:0;perspective:1900px}
 .mb2.open{--tx:.5}
-#dMort{transform:translate(-15%,10%) rotate(-5deg);z-index:2;cursor:pointer}
-#dBuy{transform:translate(23%,-12%) rotate(6deg);z-index:1;cursor:pointer}
-.desk[data-s=stack] #dMort:hover{transform:translate(-15%,8%) rotate(-3.5deg)}
-.desk[data-s=stack] #dBuy:hover{transform:translate(24%,-14%) rotate(7.5deg)}
+#dMort{transform:translate(-21%,0) rotate(-2deg);z-index:2;cursor:pointer}
+#dBuy{transform:translate(43%,-2%) rotate(4deg);z-index:1;cursor:pointer}
+.desk[data-s=stack] #dMort:hover{transform:translate(-21%,-1.5%) rotate(-1deg)}
+.desk[data-s=stack] #dBuy:hover{transform:translate(44%,-3.5%) rotate(5.5deg)}
 .desk[data-s=mort] #dMort{transform:none;z-index:3;cursor:default}
-.desk[data-s=mort] #dBuy{transform:translate(46%,-12%) rotate(13deg) scale(.92);filter:brightness(.7);z-index:1;pointer-events:none}
+.desk[data-s=mort] #dBuy{transform:translate(62%,-3%) rotate(7deg) scale(.92);filter:brightness(.7);z-index:1;pointer-events:none}
 .desk[data-s=buy] #dMort{transform:translate(-68%,4%) rotate(-5deg) scale(.86);filter:brightness(.8);z-index:1;pointer-events:none}
 .desk[data-s=buy] #dBuy{transform:translate(16%,0) scale(.82);z-index:3;cursor:default}
 .putback{position:absolute;left:24px;bottom:22px;background:none;border:0;font:600 1.6rem Caveat,cursive;color:#EAF7F0;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .4s;text-shadow:0 2px 6px #0008}
 .desk:not([data-s=stack]) .putback{opacity:1;pointer-events:auto}
-.cvM b{font-size:2.9em}.cvB{background:linear-gradient(145deg,#2B3A47,#141C24)}.cvB{justify-content:flex-start;padding-top:2.2em}.cvB b{font-size:2.05em;line-height:1.05;text-align:left;padding-right:3.3em;white-space:nowrap}
+.cvM b{font-size:2.9em}.cvB{background:linear-gradient(145deg,#2B3A47,#141C24)}.cvB{justify-content:flex-start;padding-top:2.2em}.cvB b{font-size:2.7em;line-height:.95;text-align:right;white-space:normal;padding-right:.9em}.cv.cvB::after{right:auto;left:4.2em}
 .stk.stk2{top:7em;right:1em;width:62%;font-size:1.35em;transform:rotate(3deg);text-align:left}.stk2 u{text-decoration:underline wavy #C23B52;text-underline-offset:.15em}.stk2 i{display:block;font-style:normal;font-size:.85em;color:#6B5500}
-.stk.pink{background:#FFB7C5;color:#5B1A2B;top:auto;bottom:11em;right:1.2em;width:52%;transform:rotate(-4deg)}
+.stk.pink{background:#FFB7C5;color:#5B1A2B;top:auto;bottom:4.6em;right:1.2em;width:52%;transform:rotate(-4deg)}
 .sk.e{font-size:2.3em;line-height:1;padding:.22em .32em}
-.stamp{position:absolute;right:1.1em;top:5.6em;text-align:center;line-height:1.05;border:3px solid #E5566D;color:#E5566D;font:800 1.25em 'Bricolage Grotesque',sans-serif;padding:.1em .4em;transform:rotate(-9deg);letter-spacing:.06em;border-radius:.2em;background:#ffffff14}
+.stamp{position:absolute;right:1.3em;top:9.4em;text-align:center;line-height:1.05;border:3px solid #E5566D;color:#E5566D;font:800 1.25em 'Bricolage Grotesque',sans-serif;padding:.1em .4em;transform:rotate(-9deg);letter-spacing:.06em;border-radius:.2em;background:#ffffff14}
 .dp{height:100%;display:flex;flex-direction:column;font:500 1em/1.4 'DM Sans',sans-serif;color:#0C2B20;position:relative}
 .dhd{display:flex;align-items:baseline;gap:.55em;border-bottom:2px solid #0E8F4F;padding-bottom:.3em;font-size:.92em}
 .dhd b{font:800 1.1em 'Bricolage Grotesque',sans-serif}.dhd .px{margin:0;min-height:0;font:700 1em 'Bricolage Grotesque',sans-serif}.dhd em{margin-left:auto;font:600 1.5em/1 Caveat,cursive;color:#0E8F4F}
@@ -296,6 +296,45 @@ html{color-scheme:light;background:#E3F4EA;scrollbar-width:thin;scrollbar-color:
 @media(max-width:900px){.desk{display:none!important}}
 .memo{position:absolute;left:0;right:0;bottom:.4em;transform:rotate(-1.5deg);background:#FFF3B0;box-shadow:0 .2em .5em #0003;padding:.5em .7em .6em;border-radius:.2em}.memo .hw2{font-size:1.3em;color:#5B4A00}
 .bigd{position:absolute;left:1.2em;bottom:.6em;width:7.5em;height:7.5em;transform:rotate(-6deg)}.bigdt{position:absolute;left:9.4em;bottom:2em;width:9em;font-size:1.25em;color:#C23B52;transform:rotate(-3deg)}
+
+/* ===== premium finish: cloth cover, gold frame, foil, die-cut stickers with a peel ===== */
+@property --p{syntax:'<length>';inherits:true;initial-value:0px}
+.pap{background:#FFFEFB;border:0;box-shadow:inset 0 0 0 1px rgba(11,61,46,.06)}
+.ff.pap,.bb .inpg.pap{background:linear-gradient(90deg,rgba(11,61,46,.22) 0,rgba(11,61,46,.07) 5%,transparent 16%),#FFFEFB}
+.fb.pap,.fb .inpg.pap{background:linear-gradient(270deg,rgba(11,61,46,.22) 0,rgba(11,61,46,.07) 5%,transparent 16%),#FFFEFB}
+.lf>.ff.pap{inset:.32em .32em .32em 0}.lf>.fb.pap{inset:.32em 0 .32em .32em}.fb .inpg{inset:.32em 0 .32em .32em}.bb .inpg{inset:.32em .32em .32em 0}
+.bb{box-shadow:3px 2px 0 #FBF7EA,5px 4px 0 #E4DCC3,8px 6px 0 #FBF7EA,10px 8px 0 #E4DCC3,0 40px 60px -26px #0B3D2Ecc}
+.cvb{background:linear-gradient(145deg,#118053,#06331F);border:0;box-shadow:inset 0 0 0 1px rgba(233,211,145,.55)}
+.cvb::after{content:"";position:absolute;inset:.16em;border:1px solid rgba(233,211,145,.45);border-radius:inherit;pointer-events:none}
+.cv{border:0;background:radial-gradient(120% 70% at 16% 6%,rgba(255,255,255,.22),transparent 58%),url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .45 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"),linear-gradient(150deg,#13875A 0%,#0B5A38 46%,#06331F 100%);box-shadow:inset 0 0 0 1px rgba(233,211,145,.5),inset 0 0 1.2em rgba(0,0,0,.4)}
+.cv::before{background:linear-gradient(90deg,#04251A,#0A4630 60%,#07301F);box-shadow:inset -1px 0 0 rgba(233,211,145,.55),3px 0 8px rgba(0,0,0,.35)}
+.cv::after{background:linear-gradient(#D8506B,#A32A42)}
+.cvB{background:radial-gradient(120% 70% at 16% 6%,rgba(255,255,255,.14),transparent 58%),url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .45 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"),linear-gradient(150deg,#34465A 0%,#1E2B38 50%,#0F161E 100%)}
+.frm{position:absolute;left:2.6em;right:1em;top:1em;bottom:1em;border:1px solid rgba(233,211,145,.85);border-radius:.4em;box-shadow:inset 0 0 0 .32em transparent,inset 0 0 0 calc(.32em + 1px) rgba(233,211,145,.35);pointer-events:none}
+.cv b{font:400 4.3em/.9 'Instrument Serif',serif;letter-spacing:-.01em;background:linear-gradient(110deg,#F4E3A1 0%,#D3AE52 28%,#FBF1C4 50%,#C49A35 72%,#EBD58B 100%);background-size:260% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;animation:foil 7s ease-in-out infinite;filter:drop-shadow(0 .03em .02em rgba(0,0,0,.5))}
+.cvM b{font-size:3.5em}.cvB b{color:transparent}
+@keyframes foil{0%,50%{background-position:100% 0}100%{background-position:0 0}}
+.cv small{color:#EAD58E;text-shadow:0 1px 1px #0006}
+.shn{position:absolute;inset:0;overflow:hidden;border-radius:inherit;pointer-events:none}
+.shn::before{content:"";position:absolute;top:-25%;bottom:-25%;left:-60%;width:38%;background:linear-gradient(105deg,transparent,rgba(255,255,255,.4),transparent);transform:skewX(-18deg);animation:cvs 7s ease-in-out var(--d,0s) infinite}
+@keyframes cvs{0%,55%{left:-60%}100%{left:135%}}
+.skw{position:absolute;filter:drop-shadow(0 .14em .22em rgba(0,0,0,.5))}
+.skw .sk{position:relative;top:auto;left:auto;display:block;width:100%;--p:0px;--q:calc(var(--p) * .7071);background:linear-gradient(315deg,transparent var(--q),#fff var(--q));box-shadow:none;border-radius:46% 54% 50% 50%/52% 48% 54% 46%;padding:.45em .5em;transition:--p .38s cubic-bezier(.3,1.5,.5,1)}
+.skw .sk.e{width:auto;font-size:2.3em;line-height:1;padding:.2em .3em}.skw .sk.rd{border-radius:50%;padding:.8em .7em}
+.sk::after,.stk::after{content:"";position:absolute;right:0;bottom:0;width:var(--p);height:var(--p);background:linear-gradient(135deg,#FFFBE0 0%,#EFE3A0 66%,#B9A94F 100%);clip-path:polygon(0 0,100% 0,0 100%);pointer-events:none}
+.skw .sk.e.pl{--p:.62em}.skw .sk:not(.e).pl{--p:1.7em}
+.stk{--p:0px;--q:calc(var(--p) * .7071);background:linear-gradient(315deg,transparent var(--q),#FFE45E var(--q));box-shadow:none;filter:drop-shadow(0 .22em .3em rgba(0,0,0,.45));transition:--p .4s cubic-bezier(.3,1.5,.5,1)}
+.stk.pink{background:linear-gradient(315deg,transparent var(--q),#FFB7C5 var(--q))}.stk.pl{--p:2.1em}
+.stk::before{background:linear-gradient(90deg,#ffffffb0,#ffffff70)}
+/* desk polish */
+.dkw{filter:drop-shadow(0 1.6em 1.4em rgba(0,0,0,.45))}
+.desk::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 55% at 50% 52%,rgba(233,211,145,.14),transparent 70%);pointer-events:none}
+.dhd{border-bottom:1px solid #0B3D2E;position:relative;padding-bottom:.35em}.dhd::after{content:"";position:absolute;left:0;right:0;bottom:-.3em;border-bottom:1px solid rgba(11,61,46,.3)}
+.dhd em{font:italic 400 1.9em/1 'Instrument Serif',serif;color:#0B3D2E}.dhd b{font:700 1.05em 'DM Sans',sans-serif;letter-spacing:.06em}
+.dft{border-top:1px solid rgba(11,61,46,.55)}
+.dp h2{font:400 2.55em/.98 'Instrument Serif',serif;letter-spacing:-.01em}
+.dbd{padding-top:.9em}
+@media(prefers-reduced-motion:reduce){.cv b,.shn::before{animation:none}}
 </style>
 </head>
 <body>
@@ -466,10 +505,10 @@ const face=i=>{let o='';const ci=Math.floor(R(i*5+1)*3);
   o+=`<div class="bl" style="top:${[6,36,65][j]+(R(s)-.5)*4}%;left:${1+R(s+1)*12}%;width:${w}%;transform:rotate(${((R(s+2)-.5)*5).toFixed(1)}deg)">${x}</div>`}
  return `<div class="pgc"><div class="dt" style="${R(i+4)>.5?'right':'left'}:2%;color:${pick(INK,i)}">${1+Math.floor(R(i+2)*28)} ${MON[Math.floor(R(i+3)*12)]}, ${T[i%12]}</div>${o}<em>sample data</em></div>`};
 const sk=a=>`<svg viewBox="0 0 ${a.length*12+4} 38" aria-hidden="true">`+a.map(([c,t,b],i)=>`<path d="M${i*12+8} ${t-4}V${b+4}" stroke="${c}" stroke-width="2"/><rect x="${i*12+4}" y="${t}" width="8" height="${b-t}" fill="${c}"/>`).join('')+'</svg>',G='#1FBF73',Rr='#E5566D';
-const SK=`<span class="sk" style="top:2.6em;left:3.3em;width:6.4em;transform:rotate(-8deg)">${sk([[G,18,30],[Rr,10,22],[G,6,18],[G,4,14]])}</span><span class="sk" style="top:10.2em;left:3.1em;width:5em;transform:rotate(7deg)">${sk([[Rr,8,22],[Rr,14,28],[G,10,24]])}</span><span class="sk rd" style="top:17.4em;right:2.4em;width:4.7em;transform:rotate(-6deg)">${sk([[G,18,30],[G,10,24],[G,4,16]])}</span>`;
+const SK=`<span class="skw" style="top:2.6em;left:3.3em;width:6.4em;transform:rotate(-8deg)"><span class="sk">${sk([[G,18,30],[Rr,10,22],[G,6,18],[G,4,14]])}</span></span><span class="skw" style="top:10.2em;left:3.1em;width:5em;transform:rotate(7deg)"><span class="sk">${sk([[Rr,8,22],[Rr,14,28],[G,10,24]])}</span></span><span class="skw" style="top:17.4em;right:2.4em;width:4.7em;transform:rotate(-6deg)"><span class="sk rd">${sk([[G,18,30],[G,10,24],[G,4,16]])}</span></span>`;
 const fin=`<div class="fin"><svg class="sm" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 6C74 4 94 24 93 50C92 76 72 94 48 93C24 92 6 72 8 48C10 24 26 8 50 6Z" fill="#FFE45E"/><path d="M20 30L40 14M16 46L56 12M18 62L72 16M24 76L84 26M34 84L88 40M50 88L90 58" stroke="#F5A524" stroke-width="3.5" stroke-linecap="round" opacity=".65"/><path d="M50 6C74 4 94 24 93 50C92 76 72 94 48 93C24 92 6 72 8 48C10 24 26 8 50 6Z" fill="none" stroke="#33333D" stroke-width="3" stroke-linejoin="round"/><ellipse cx="36" cy="38" rx="3.5" ry="6.5" fill="#33333D"/><ellipse cx="64" cy="38" rx="3.5" ry="6.5" fill="#33333D"/><path d="M28 60C38 78 62 78 72 58" fill="none" stroke="#C23B52" stroke-width="4" stroke-linecap="round"/><circle cx="23" cy="56" r="7" fill="#FF8FA3" opacity=".7"/><circle cx="77" cy="56" r="7" fill="#FF8FA3" opacity=".7"/></svg><p>You don’t need a course to start or master your journey in stock market, you just need a <mark>Dalal Diary</mark></p><button class="go gs" id="gs">Get started</button></div>`;
 let h=`<div class="bb cvb"><div class="inpg pap">${fin}</div></div>`;
-for(let k=0;k<6;k++)h+=`<div class="lf" style="--zc:${(6-k)*.8}px;--zf:${k*.8}px"><div class="ff ${k?'pap':'cv'}">${k?face(2*k-1):'<b>Dalal<br>Diary</b><small>the diary every stock market paglu needs</small>'+SK+'<span class="stk">tap the diary to see whats hidden :)</span>'}</div>${k?`<div class="fb pap">${face(2*k)}</div>`:`<div class="fb cvb"><div class="inpg pap">${face(0)}</div></div>`}</div>`;
+for(let k=0;k<6;k++)h+=`<div class="lf" style="--zc:${(6-k)*.8}px;--zf:${k*.8}px"><div class="ff ${k?'pap':'cv'}">${k?face(2*k-1):'<i class="frm"></i><b>Dalal<br>Diary</b><small>the diary every stock market paglu needs</small>'+SK+'<span class="stk">tap the diary to see whats hidden :)</span><i class="shn"></i>'}</div>${k?`<div class="fb pap">${face(2*k)}</div>`:`<div class="fb cvb"><div class="inpg pap">${face(0)}</div></div>`}</div>`;
 book.innerHTML=h;
 const lf=[...book.querySelectorAll('.lf')];lf[0].classList.add('c0');let busy=false,tm=[];
 const at=(f,t)=>tm.push(setTimeout(f,t));
@@ -644,11 +683,11 @@ const PGS=[pg1,pg2,pg3,pg4];
 function paintPages(){if(!DK.r)return;PGS.forEach((f,i)=>{const e=$('#dp'+(i+1));if(e)e.innerHTML=f(DK.r)});const sc=$('#mSec');if(sc&&DK.fd&&DK.fd.prof)sc.textContent=DK.fd.prof.sec||'';paint();qs()}
 function leaf(k,L,cls,front,back){return `<div class="lf" style="--zc:${(L-k)*.8}px;--zf:${k*.8}px"><div class="ff ${k?'pap':'cv '+cls}">${front}</div>${k?`<div class="fb pap">${back}</div>`:`<div class="fb cvb"><div class="inpg pap">${back}</div></div>`}</div>`}
 function bookHTML(cls,cover,pages){const L=pages.length/2;let h=`<div class="bb cvb"><div class="inpg pap">${pages[pages.length-1]}</div></div>`;for(let k=0;k<L;k++)h+=leaf(k,L,cls,k?pages[2*k-1]:cover,pages[2*k]);return h}
-const E=(t,x,y,rot)=>`<span class="sk e" style="top:${(y/2.3).toFixed(2)}em;left:${(x/2.3).toFixed(2)}em;transform:rotate(${rot}deg)">${t}</span>`;
+const E=(t,x,y,rot)=>`<span class="skw" style="top:${y}em;left:${x}em;transform:rotate(${rot}deg)"><span class="sk e">${t}</span></span>`;
 function deskHTML(r){
-  const mort=bookHTML('cvM',`<b>Stock<br>Mortem<br>Report</b><span class="stk stk2"><u>${esc(r.n)}</u><br>${esc(sym0(r))}<i id="mSec"></i></span>${E('💰',3.2,2.4,-9)}${E('🤫',3.4,10.4,7)}${E('📈',14.5,16.6,-6)}${E('🔒',17.6,2.2,10)}`,
+  const mort=bookHTML('cvM',`<i class="frm"></i><b>Stock<br>Mortem<br>Report</b><span class="stk stk2"><u>${esc(r.n)}</u><br>${esc(sym0(r))}<i id="mSec"></i></span>${E('💰',3.2,2.4,-9)}${E('🤫',3.4,10.4,7)}${E('📈',14.5,16.6,-6)}${E('🔒',17.6,2.2,10)}<i class="shn" style="--d:2.5s"></i>`,
     [1,2,3,4].map(i=>`<div class="dp" id="dp${i}"></div>`));
-  const buy=bookHTML('cvB',`<b>Should I buy?</b><span class="stamp">TOP<br>SECRET</span>${E('🤔',3.4,12.5,-7)}${E('💸',17.4,20.5,8)}<span class="stk pink">confused… 🙈<br>read me first</span>`,
+  const buy=bookHTML('cvB',`<i class="frm"></i><b>Should<br>I buy?</b><span class="stamp">TOP<br>SECRET</span>${E('🤔',3.6,9.5,-7)}${E('💸',18.4,15.6,8)}<span class="stk pink">confused… 🙈<br>read me first</span><i class="shn" style="--d:4s"></i>`,
     ['<div class="soon" style="opacity:.5"><span class="hw2">…</span></div>',`<div class="dp"><div class="soon"><span class="hw2">Coming soon…</span><span class="meta2">A very secret page. Something clever<br>will be written here, I promise.</span><svg viewBox="0 0 120 80" width="60%" aria-hidden="true"><g fill="none" stroke="#0E8F4F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M30 12h40M30 68h40M34 12c0 22 26 20 26 28S34 46 34 68M66 12c0 22-26 20-26 28S66 46 66 68"/><circle cx="96" cy="26" r="12" stroke="#C23B52"/><path d="M96 20v12M92 24c2-3 6-3 8 0" stroke="#C23B52"/></g></svg><span class="hw2" style="font-size:1.6em">?  ?  ?</span></div></div>`]);
   return `<div class="dstage" id="dstage"><div class="dkw" id="dBuy"><div class="dk"><div class="book mb2" id="bBuy">${buy}</div></div></div><div class="dkw" id="dMort"><div class="dk"><div class="book mb2" id="bMort">${mort}</div></div></div><button class="putback" id="putback">↩ put the diary back</button></div>`}
 function goTo(b,n){[...b.querySelectorAll('.lf')].forEach((l,i)=>{const w=i<n,h=l.classList.contains('fl');if(w&&!h)l.classList.add('fl');else if(!w&&h){l.classList.remove('fl');l.classList.add('un')}})}
@@ -679,6 +718,11 @@ $('#desk').addEventListener('click',e=>{const t=e.target,nb=navAt(e);
   else if(t.id==='putback')backToShelf();
   else if(t.closest('#dMort'))mortOpen();else if(t.closest('#dBuy'))buyOpen();
   else if(t.id==='desk'||t.id==='dstage'){DK.state==='stack'?close():backToShelf()}});
+
+let plEl=null,plBusy=false,plx=0,ply=0;
+addEventListener('mousemove',e=>{plx=e.clientX;ply=e.clientY;if(plBusy)return;plBusy=true;requestAnimationFrame(()=>{plBusy=false;
+  const t=document.elementsFromPoint(plx,ply).find(x=>x.classList&&(x.classList.contains('sk')||x.classList.contains('stk')))||null;
+  if(t!==plEl){if(plEl)plEl.classList.remove('pl');plEl=t;if(t)t.classList.add('pl')}})},{passive:true});
 function chips(){chips0();try{renderDiary()}catch(e){console.error('diary render failed',e)}}
 const V={home:$('#v-home'),stocks:$('#v-stocks'),diary:$('#v-diary')},ORD=['home','stocks','diary'],MS=900,EASE='cubic-bezier(.65,.05,.25,1)';
 const nv=document.querySelector('.nav'),tabs=[...nv.querySelectorAll('.tab')],mark=nv.querySelector('.mark');
