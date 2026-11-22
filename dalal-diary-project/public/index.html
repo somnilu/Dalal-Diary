@@ -6,7 +6,7 @@
 <title>Dalal Diary</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Caveat:wght@500;600;700&family=Kalam:wght@400;700&family=Reenie+Beanie&family=Gochi+Hand&family=Indie+Flower&family=Dancing+Script:wght@600&family=Permanent+Marker&family=Shadows+Into+Light&family=Homemade+Apple&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Caveat:wght@500;600;700&family=Kalam:wght@400;700&family=Reenie+Beanie&family=Gochi+Hand&family=Indie+Flower&family=Dancing+Script:wght@600&family=Permanent+Marker&family=Shadows+Into+Light&family=Homemade+Apple&family=Instrument+Serif:ital@0;1&family=DM+Serif+Display&family=DM+Sans:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#FCFFFD;--bg2:#E3F4EA;--card:#fff;--line:#CDE6D6;--text:#0C2B20;--mut:#4C6B5C;--gold:#16A860;--ml:78px;--grid:#0C2B2010;--sh:0 16px 30px -18px #0C5A3A77;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
@@ -335,6 +335,30 @@ html{color-scheme:light;background:#E3F4EA;scrollbar-width:thin;scrollbar-color:
 .dp h2{font:400 2.55em/.98 'Instrument Serif',serif;letter-spacing:-.01em}
 .dbd{padding-top:.9em}
 @media(prefers-reduced-motion:reduce){.cv b,.shn::before{animation:none}}
+.skw svg{display:block;width:100%;height:auto;overflow:visible}
+
+/* ===== round 2: engraved titles, fitted notes, softer corners, natural light ===== */
+@property --lx{syntax:'<percentage>';inherits:false;initial-value:-40%}
+.ff{border-radius:.3em 1.35em 1.35em .3em}.fb{border-radius:1.35em .3em .3em 1.35em}.bb{border-radius:.3em 1.35em 1.35em .3em}
+.lf>.ff.pap{border-radius:.2em .95em .95em .2em}.lf>.fb.pap{border-radius:.95em .2em .2em .95em}.fb .inpg{border-radius:.95em .2em .2em .95em}.bb .inpg{border-radius:.2em .95em .95em .2em}
+.cv{padding:1.6em 1.2em 2.2em 4.6em}.cv::before{border-radius:.3em 0 0 .3em}
+.cv b{font:400 3.7em/.92 'DM Serif Display',serif;letter-spacing:-.005em;background:linear-gradient(115deg,#EAD487 0%,#C9A24A 48%,#E3C873 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;animation:none;filter:drop-shadow(1px 1px 0 rgba(255,255,255,.2)) drop-shadow(-1px -1px 0 rgba(0,0,0,.7)) drop-shadow(0 0 .02em rgba(0,0,0,.4))}
+.cvM b.ttl{font-size:3.5em}.cvB b.ttl{font-size:2.9em;line-height:.95;text-align:right;white-space:normal;padding-right:.1em}
+.cvM::after{display:none}
+.emb{position:absolute;right:1.9em;bottom:2.3em;width:6.4em;color:#C9A24A;filter:drop-shadow(1px 1px 0 rgba(255,255,255,.2)) drop-shadow(-1px -1px 0 rgba(0,0,0,.6));opacity:.95;pointer-events:none}
+.stk.stk2{top:8.4em;left:4.6em;right:auto;width:max-content;max-width:72%;font-size:1.3em;line-height:1.15;text-align:left;padding:.55em .85em .6em;transform:rotate(-2deg)}
+.stk2 .nm{position:relative;display:inline-block;padding-bottom:.42em;font-weight:700}.stk2 .ul{position:absolute;left:-2%;bottom:.04em;width:104%;height:.5em}
+.stk2 .sy{display:block;margin-top:.2em;font-size:.95em}.stk2 i{display:block;font-style:normal;font-size:.85em;color:#6B5500}
+.stk.grn{background:linear-gradient(315deg,transparent var(--q),#B7EBA8 var(--q));color:#0B3D2E;top:auto;bottom:4.2em;right:1.2em;left:auto;width:max-content;max-width:60%;font-size:1.15em;line-height:1.15;padding:.6em .85em .7em;transform:rotate(-3deg);text-align:left}
+.stk.grn .q{display:block}.stk.grn .sc{display:block;margin-top:.35em;font-size:1.1em}.stk.grn u{text-decoration:underline;text-decoration-thickness:.1em;text-underline-offset:.12em}
+.inkst{position:absolute;right:1em;top:8.6em;width:11.8em;transform:rotate(-8deg);pointer-events:none;opacity:.96}
+.shn{background:radial-gradient(ellipse 60% 36% at var(--lx) 32%,rgba(255,255,255,.2) 0%,rgba(255,255,255,.07) 45%,transparent 74%);animation:glide 18s ease-in-out var(--d,0s) infinite}.shn::before{display:none}
+@keyframes glide{0%,40%{--lx:-40%}80%,100%{--lx:140%}}
+.cv.cvB::before{background:linear-gradient(90deg,#0B1118,#1A2632 60%,#101820);box-shadow:inset -1px 0 0 rgba(233,211,145,.45),3px 0 8px rgba(0,0,0,.35)}
+#bBuy .cvb{background:linear-gradient(145deg,#34465A,#0F161E)}
+.desk[data-s=swap] #dMort{transform:translate(-46%,3%) rotate(-11deg) scale(.93);z-index:3;filter:brightness(.92)}
+.desk[data-s=swap] #dBuy{transform:translate(20%,-3%) rotate(1.5deg) scale(.98);z-index:2}
+@media(prefers-reduced-motion:reduce){.shn{animation:none}}
 </style>
 </head>
 <body>
@@ -504,8 +528,132 @@ const face=i=>{let o='';const ci=Math.floor(R(i*5+1)*3);
   if(j===ci||r>.8){const[c,a]=CH[Math.floor(R(s+5)*5)];x=c(s)+(a?ann(s+9):'')}else if(r>.2){x=note(s);w=72}else continue;
   o+=`<div class="bl" style="top:${[6,36,65][j]+(R(s)-.5)*4}%;left:${1+R(s+1)*12}%;width:${w}%;transform:rotate(${((R(s+2)-.5)*5).toFixed(1)}deg)">${x}</div>`}
  return `<div class="pgc"><div class="dt" style="${R(i+4)>.5?'right':'left'}:2%;color:${pick(INK,i)}">${1+Math.floor(R(i+2)*28)} ${MON[Math.floor(R(i+3)*12)]}, ${T[i%12]}</div>${o}<em>sample data</em></div>`};
-const sk=a=>`<svg viewBox="0 0 ${a.length*12+4} 38" aria-hidden="true">`+a.map(([c,t,b],i)=>`<path d="M${i*12+8} ${t-4}V${b+4}" stroke="${c}" stroke-width="2"/><rect x="${i*12+4}" y="${t}" width="8" height="${b-t}" fill="${c}"/>`).join('')+'</svg>',G='#1FBF73',Rr='#E5566D';
-const SK=`<span class="skw" style="top:2.6em;left:3.3em;width:6.4em;transform:rotate(-8deg)"><span class="sk">${sk([[G,18,30],[Rr,10,22],[G,6,18],[G,4,14]])}</span></span><span class="skw" style="top:10.2em;left:3.1em;width:5em;transform:rotate(7deg)"><span class="sk">${sk([[Rr,8,22],[Rr,14,28],[G,10,24]])}</span></span><span class="skw" style="top:17.4em;right:2.4em;width:4.7em;transform:rotate(-6deg)"><span class="sk rd">${sk([[G,18,30],[G,10,24],[G,4,16]])}</span></span>`;
+/* ===== sticker library: die-cut artwork, outline follows the shape, corner peels like real vinyl ===== */
+const IC={
+candles:'<path d="M24 14v72M50 8v84M76 24v58"/><rect x="15" y="34" width="18" height="30" fill="#E5566D"/><rect x="41" y="22" width="18" height="46" fill="#1FBF73"/><rect x="67" y="40" width="18" height="28" fill="#1FBF73"/>',
+trend:'<rect x="8" y="12" width="84" height="76" rx="8" fill="#fff"/><path d="M18 70l20-22 14 10 28-30" fill="none" stroke="#1FBF73" stroke-width="7"/><path d="M62 28h18v18" fill="none" stroke="#1FBF73" stroke-width="7"/>',
+bull:'<path d="M14 30c-8 0-10-12-4-20 4 10 12 12 20 10h40c8 2 16 0 20-10 6 8 4 20-4 20 0 24-10 52-36 52S14 54 14 30z" fill="#F2B544"/><circle cx="36" cy="46" r="4.5" fill="#1E2A24"/><circle cx="64" cy="46" r="4.5" fill="#1E2A24"/><ellipse cx="50" cy="68" rx="16" ry="11" fill="#FFE9B8"/><circle cx="43" cy="68" r="2.5" fill="#1E2A24"/><circle cx="57" cy="68" r="2.5" fill="#1E2A24"/>',
+bear:'<circle cx="24" cy="26" r="13" fill="#8B5E3C"/><circle cx="76" cy="26" r="13" fill="#8B5E3C"/><circle cx="50" cy="54" r="36" fill="#A9724A"/><ellipse cx="50" cy="66" rx="15" ry="12" fill="#FFE9B8"/><circle cx="37" cy="48" r="4.5" fill="#1E2A24"/><circle cx="63" cy="48" r="4.5" fill="#1E2A24"/><ellipse cx="50" cy="62" rx="5" ry="3.6" fill="#1E2A24"/>',
+coin:'<circle cx="50" cy="50" r="40" fill="#F2B544"/><circle cx="50" cy="50" r="30" fill="#FFD86B"/><path d="M36 36h28M36 46h28M38 36c16 0 20 14 4 16l20 20" fill="none" stroke-width="5"/>',
+bag:'<path d="M38 16l-8-10 14 6 6-8 6 8 14-6-8 10c22 14 28 44 10 70H28C10 60 16 30 38 16z" fill="#7BD38F"/><path d="M40 52h20M40 62h20M44 52c12 0 14 10 2 12l12 14" fill="none" stroke-width="4"/>',
+target:'<circle cx="46" cy="54" r="36" fill="#fff"/><circle cx="46" cy="54" r="25" fill="#E5566D"/><circle cx="46" cy="54" r="14" fill="#fff"/><circle cx="46" cy="54" r="5" fill="#E5566D"/><path d="M46 54L84 16M72 12h14v14" fill="none" stroke-width="5"/>',
+rocket:'<path d="M50 6c18 12 22 36 14 58H36C28 42 32 18 50 6z" fill="#fff"/><circle cx="50" cy="36" r="8" fill="#4C8DD6"/><path d="M36 58l-16 8 8 20 12-12zM64 58l16 8-8 20-12-12z" fill="#E5566D"/><path d="M42 70h16l-8 24z" fill="#F2B544"/>',
+magn:'<rect x="6" y="20" width="70" height="58" rx="6" fill="#fff"/><path d="M14 64l16-14 12 8 20-22" fill="none" stroke="#1FBF73" stroke-width="5"/><circle cx="62" cy="52" r="20" fill="#CFEFFF" fill-opacity=".75"/><path d="M76 66l16 20" stroke-width="9"/>',
+bulb:'<path d="M50 6c22 0 34 18 26 38-4 10-12 14-12 24H36c0-10-8-14-12-24C16 24 28 6 50 6z" fill="#FFE45E"/><rect x="36" y="70" width="28" height="10" rx="3" fill="#9AA8A0"/><rect x="40" y="82" width="20" height="9" rx="3" fill="#9AA8A0"/>',
+shield:'<path d="M50 6l36 12v28c0 24-16 40-36 48C30 86 14 70 14 46V18z" fill="#4C8DD6"/><path d="M32 48l13 13 24-26" fill="none" stroke="#fff" stroke-width="8"/>',
+key:'<circle cx="30" cy="38" r="21" fill="#F2B544"/><circle cx="30" cy="38" r="7" fill="#fff"/><path d="M44 52l40 38" stroke-width="13"/><path d="M44 52l40 38" stroke="#F2B544" stroke-width="7"/><path d="M70 76l10-10" stroke-width="12"/><path d="M70 76l10-10" stroke="#F2B544" stroke-width="6"/>',
+glass:'<path d="M22 8h56M22 92h56M26 8c0 30 24 32 24 42S26 62 26 92M74 8c0 30-24 32-24 42s24 12 24 42" fill="#CFEFFF"/><path d="M34 84c10-10 22-10 32 0z" fill="#F2B544"/>',
+trophy:'<path d="M28 8h44v26c0 16-10 24-22 24S28 50 28 34z" fill="#F2B544"/><path d="M28 18H12c0 18 6 24 18 28M72 18h16c0 18-6 24-18 28" fill="none"/><rect x="42" y="58" width="16" height="14" fill="#F2B544"/><rect x="28" y="72" width="44" height="16" rx="3" fill="#8B5E3C"/>',
+scale:'<path d="M50 10v70M26 82h48M16 28h68" fill="none" stroke-width="5"/><path d="M16 28L4 58h24zM84 28L72 58h24z" fill="#FFF4D6"/>',
+news:'<rect x="10" y="16" width="80" height="68" rx="5" fill="#fff"/><rect x="18" y="26" width="30" height="20" fill="#9AA8A0"/><path d="M56 30h26M56 40h26M18 58h64M18 70h64" stroke-width="3.5"/>',
+calc:'<rect x="22" y="6" width="56" height="88" rx="9" fill="#4C8DD6"/><rect x="30" y="14" width="40" height="18" rx="2" fill="#CFEFFF"/><g fill="#fff"><circle cx="36" cy="48" r="5"/><circle cx="50" cy="48" r="5"/><circle cx="64" cy="48" r="5"/><circle cx="36" cy="64" r="5"/><circle cx="50" cy="64" r="5"/><circle cx="64" cy="64" r="5"/><circle cx="36" cy="80" r="5"/><circle cx="50" cy="80" r="5"/></g><circle cx="64" cy="80" r="5" fill="#E5566D"/>',
+hs:'<path d="M6 78l14-24 10 12 20-46 20 46 10-12 14 24" fill="none" stroke="#1FBF73" stroke-width="7"/><path d="M4 68h92" stroke="#E5566D" stroke-width="4" stroke-dasharray="7 6"/>',
+cup:'<path d="M8 18c0 44 18 64 42 64s38-18 38-46" fill="none" stroke="#1FBF73" stroke-width="7"/><path d="M88 36l8 14-16 2" fill="none" stroke="#1FBF73" stroke-width="6"/>',
+dbl:'<path d="M8 16l20 62 22-34 22 34 20-62" fill="none" stroke="#1FBF73" stroke-width="7"/><path d="M6 44h88" stroke="#E5566D" stroke-width="4" stroke-dasharray="7 6"/>',
+up:'<path d="M50 8l38 40H64v44H36V48H12z" fill="#1FBF73"/>',
+down:'<path d="M50 92L12 52h24V8h28v44h24z" fill="#E5566D"/>',
+piggy:'<ellipse cx="48" cy="56" rx="36" ry="28" fill="#FFB7C5"/><circle cx="84" cy="54" r="11" fill="#FFB7C5"/><path d="M34 34l-8-16 18 8z" fill="#FFB7C5"/><rect x="26" y="76" width="12" height="14" fill="#FFB7C5"/><rect x="58" y="76" width="12" height="14" fill="#FFB7C5"/><path d="M42 34h16" stroke-width="5"/><circle cx="76" cy="46" r="3" fill="#1E2A24"/>',
+ingot:'<path d="M6 84l10-26h34l10 26z" fill="#F2B544"/><path d="M42 84l10-26h34l10 26z" fill="#F2B544"/><path d="M24 58l10-26h34l10 26z" fill="#FFD86B"/>',
+dice:'<rect x="14" y="14" width="72" height="72" rx="14" fill="#fff"/><g fill="#E5566D"><circle cx="34" cy="34" r="6"/><circle cx="66" cy="34" r="6"/><circle cx="50" cy="50" r="6"/><circle cx="34" cy="66" r="6"/><circle cx="66" cy="66" r="6"/></g>',
+crystal:'<circle cx="50" cy="44" r="34" fill="#B9A7F0"/><path d="M32 40c4-12 16-16 24-10" fill="none" stroke="#fff" stroke-width="4"/><path d="M26 76h48l-8 16H34z" fill="#8B5E3C"/>',
+bell:'<path d="M50 8c20 0 28 16 28 34v14l8 12H14l8-12V42c0-18 8-34 28-34z" fill="#F2B544"/><circle cx="50" cy="84" r="9" fill="#F2B544"/>',
+pct:'<circle cx="50" cy="50" r="40" fill="#E5566D"/><circle cx="35" cy="35" r="7.5" fill="#fff"/><circle cx="65" cy="65" r="7.5" fill="#fff"/><path d="M68 30L32 70" stroke="#fff" stroke-width="8"/>',
+clock:'<circle cx="50" cy="50" r="40" fill="#fff"/><path d="M50 24v28l18 10" fill="none" stroke-width="6"/><circle cx="50" cy="50" r="4" fill="#1E2A24"/>',
+chest:'<path d="M10 50c0-24 80-24 80 0v6H10z" fill="#8B5E3C"/><rect x="10" y="56" width="80" height="32" rx="3" fill="#A9724A"/><rect x="43" y="50" width="14" height="20" rx="3" fill="#F2B544"/><circle cx="30" cy="42" r="7" fill="#F2B544"/><circle cx="70" cy="42" r="7" fill="#F2B544"/>',
+wallet:'<rect x="8" y="24" width="84" height="58" rx="9" fill="#8B5E3C"/><rect x="56" y="44" width="36" height="22" rx="7" fill="#F2B544"/><circle cx="68" cy="55" r="3.5" fill="#1E2A24"/>',
+gem:'<path d="M22 12h56l18 26-46 54L4 38z" fill="#7FD8FF"/><path d="M4 38h92M34 12l-10 26 26 54M66 12l10 26-26 54" fill="none" stroke-width="2.5"/>',
+pie:'<circle cx="50" cy="50" r="40" fill="#4C8DD6"/><path d="M50 50V10a40 40 0 0 1 38 28z" fill="#F2B544"/><path d="M50 50l38-12a40 40 0 0 1-10 46z" fill="#E5566D"/>',
+bars:'<rect x="10" y="54" width="20" height="36" fill="#E5566D"/><rect x="40" y="34" width="20" height="56" fill="#F2B544"/><rect x="70" y="12" width="20" height="78" fill="#1FBF73"/>',
+tape:'<rect x="4" y="32" width="92" height="36" rx="5" fill="#1E2A24"/><path d="M12 56l8-10 8 6 8-12M50 46h12M66 46h12M50 58h16" fill="none" stroke="#1FBF73" stroke-width="3.5"/>',
+crown:'<path d="M10 74L4 28l24 20 22-32 22 32 24-20-6 46z" fill="#F2B544"/><rect x="10" y="76" width="80" height="12" rx="3" fill="#FFD86B"/>',
+x10:'<circle cx="50" cy="50" r="42" fill="#1FBF73"/><text x="50" y="63" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="38" fill="#fff" stroke="none">10X</text>',
+buy:'<rect x="6" y="26" width="88" height="48" rx="11" fill="#1FBF73"/><text x="50" y="62" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="30" fill="#fff" stroke="none">BUY</text>',
+sell:'<rect x="6" y="26" width="88" height="48" rx="11" fill="#E5566D"/><text x="50" y="62" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="30" fill="#fff" stroke="none">SELL</text>',
+hodl:'<path d="M12 14h76a8 8 0 0 1 8 8v38a8 8 0 0 1-8 8H48L28 90V68H12a8 8 0 0 1-8-8V22a8 8 0 0 1 8-8z" fill="#FFE45E"/><text x="50" y="50" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="25" fill="#1E2A24" stroke="none">HODL</text>',
+pick:'<path d="M10 34C28 10 72 10 90 34 70 22 52 24 44 40z" fill="#9AA8A0"/><path d="M46 36l30 54" stroke-width="13"/><path d="M46 36l30 54" stroke="#8B5E3C" stroke-width="7"/>',
+hat:'<path d="M10 66c0-26 16-42 40-42s40 16 40 42z" fill="#F2B544"/><rect x="4" y="66" width="92" height="12" rx="6" fill="#F2B544"/><rect x="42" y="16" width="16" height="32" rx="5" fill="#FFD86B"/>',
+mcart:'<path d="M8 38h84l-10 40H18z" fill="#8A6B4C"/><circle cx="32" cy="86" r="8" fill="#9AA8A0"/><circle cx="68" cy="86" r="8" fill="#9AA8A0"/><path d="M22 38c6-14 16-18 24-8 8-12 22-8 30 8z" fill="#F2B544"/>',
+spool:'<rect x="20" y="8" width="60" height="12" rx="4" fill="#F2B544"/><rect x="20" y="80" width="60" height="12" rx="4" fill="#F2B544"/><rect x="26" y="20" width="48" height="60" fill="#E5566D"/><path d="M26 34h48M26 50h48M26 66h48" stroke-width="2.5"/>',
+scis:'<path d="M32 66L76 10M56 70L26 10" stroke-width="8"/><circle cx="26" cy="80" r="12" fill="#fff"/><circle cx="60" cy="84" r="12" fill="#fff"/>',
+tee:'<path d="M32 10L6 26l12 18 10-6v52h44V38l10 6 12-18-26-16c-4 8-12 10-18 10s-14-2-18-10z" fill="#4C8DD6"/>',
+bank:'<path d="M50 6L6 30h88z" fill="#F2B544"/><rect x="14" y="34" width="14" height="40" fill="#fff"/><rect x="43" y="34" width="14" height="40" fill="#fff"/><rect x="72" y="34" width="14" height="40" fill="#fff"/><rect x="6" y="78" width="88" height="14" rx="2" fill="#9AA8A0"/>',
+card:'<rect x="6" y="20" width="88" height="58" rx="9" fill="#4C8DD6"/><rect x="6" y="34" width="88" height="12" fill="#1E2A24"/><rect x="16" y="58" width="28" height="8" rx="2" fill="#fff"/>',
+umb:'<path d="M6 52C6 26 26 10 50 10s44 16 44 42z" fill="#E5566D"/><path d="M50 52v32c0 9 13 9 13 0" fill="none" stroke-width="6"/>',
+laptop:'<rect x="14" y="16" width="72" height="50" rx="6" fill="#CFEFFF"/><path d="M4 80h92l-8-14H12z" fill="#9AA8A0"/><path d="M40 32L28 41l12 9M60 32l12 9-12 9" fill="none" stroke-width="4"/>',
+chip:'<path d="M34 6v14M50 6v14M66 6v14M34 80v14M50 80v14M66 80v14M6 34h14M6 50h14M6 66h14M80 34h14M80 50h14M80 66h14" stroke-width="5"/><rect x="20" y="20" width="60" height="60" rx="9" fill="#2F6F55"/><rect x="36" y="36" width="28" height="28" rx="4" fill="#1FBF73"/>',
+code:'<rect x="6" y="16" width="88" height="68" rx="9" fill="#1E2A24"/><path d="M36 36L22 50l14 14M64 36l14 14-14 14M55 32L45 68" fill="none" stroke="#1FBF73" stroke-width="5"/>',
+tower:'<path d="M50 38L30 92h40z" fill="#9AA8A0"/><path d="M28 28a30 30 0 0 1 44 0M16 16a46 46 0 0 1 68 0" fill="none" stroke="#4C8DD6" stroke-width="6"/><circle cx="50" cy="34" r="7" fill="#E5566D"/>',
+pill:'<g transform="rotate(-35 50 50)"><rect x="8" y="32" width="84" height="36" rx="18" fill="#fff"/><path d="M50 32h24a18 18 0 0 1 0 36H50z" fill="#E5566D"/></g>',
+flask:'<path d="M38 6h24v28l26 48c4 8-2 12-8 12H20c-6 0-12-4-8-12l26-48z" fill="#CFEFFF"/><path d="M24 66h52l12 16c2 6-2 10-6 10H18c-4 0-8-4-6-10z" fill="#1FBF73"/>',
+cross:'<path d="M36 8h28v28h28v28H64v28H36V64H8V36h28z" fill="#E5566D"/><path d="M42 20h16v22h22v16H58v22H42V58H20V42h22z" fill="#fff" stroke="none"/>',
+drop:'<path d="M50 6C72 34 84 48 84 64a34 34 0 0 1-68 0C16 48 28 34 50 6z" fill="#2B3A47"/><path d="M34 64a16 16 0 0 0 14 17" fill="none" stroke="#fff" stroke-width="4"/>',
+bolt:'<path d="M58 4L16 56h28l-8 40 48-54H56z" fill="#F2B544"/>',
+wind:'<path d="M50 52v42" stroke-width="7"/><path d="M50 50L44 6l12 4zM50 50l40 20-6 12zM50 50L10 74l6 12z" fill="#fff"/><circle cx="50" cy="50" r="8" fill="#9AA8A0"/>',
+pump:'<rect x="18" y="12" width="46" height="76" rx="7" fill="#E5566D"/><rect x="26" y="20" width="30" height="20" fill="#CFEFFF"/><path d="M64 34h12l10 12v32c0 7-10 7-10 0V54" fill="none" stroke-width="5"/>',
+car:'<path d="M6 64l8-22c3-8 9-10 16-10h38c7 0 12 3 16 10l10 14v8z" fill="#E5566D"/><path d="M26 36h22v16H20zM54 36h18l9 16H54z" fill="#CFEFFF"/><circle cx="28" cy="70" r="11" fill="#1E2A24"/><circle cx="74" cy="70" r="11" fill="#1E2A24"/><circle cx="28" cy="70" r="4" fill="#fff"/><circle cx="74" cy="70" r="4" fill="#fff"/>',
+gear:'<g fill="#9AA8A0"><rect x="42" y="4" width="16" height="22"/><rect x="42" y="74" width="16" height="22"/><rect x="4" y="42" width="22" height="16"/><rect x="74" y="42" width="22" height="16"/><g transform="rotate(45 50 50)"><rect x="42" y="4" width="16" height="22"/><rect x="42" y="74" width="16" height="22"/><rect x="4" y="42" width="22" height="16"/><rect x="74" y="42" width="22" height="16"/></g></g><circle cx="50" cy="50" r="28" fill="#9AA8A0"/><circle cx="50" cy="50" r="11" fill="#fff"/>',
+wheel:'<circle cx="50" cy="50" r="42" fill="#1E2A24"/><circle cx="50" cy="50" r="26" fill="#CBD3CF"/><path d="M50 26v48M26 50h48" stroke-width="4"/><circle cx="50" cy="50" r="8" fill="#1E2A24"/>',
+basket:'<path d="M6 14h14l10 48h48l10-34H26" fill="none" stroke-width="5"/><path d="M26 28h62l-9 34H34z" fill="#1FBF73"/><circle cx="38" cy="80" r="8" fill="#9AA8A0"/><circle cx="72" cy="80" r="8" fill="#9AA8A0"/>',
+shbag:'<path d="M14 30h72l-6 62H20z" fill="#F2B544"/><path d="M34 30c0-22 32-22 32 0" fill="none" stroke-width="6"/><circle cx="38" cy="48" r="3" fill="#1E2A24"/><circle cx="62" cy="48" r="3" fill="#1E2A24"/>',
+apple:'<path d="M50 26c-14-10-36-4-36 24 0 22 14 44 26 44 6 0 6-4 10-4s4 4 10 4c12 0 26-22 26-44 0-28-22-34-36-24z" fill="#E5566D"/><path d="M50 26c0-12 4-18 12-20" fill="none" stroke-width="5"/><path d="M56 18c8-8 18-6 22-2-6 8-16 8-22 2z" fill="#1FBF73"/>',
+house:'<path d="M50 8L6 46h14v44h60V46h14z" fill="#F2B544"/><rect x="40" y="58" width="20" height="32" fill="#8B5E3C"/><rect x="24" y="52" width="12" height="12" fill="#CFEFFF"/><rect x="64" y="52" width="12" height="12" fill="#CFEFFF"/>',
+bldg:'<rect x="22" y="8" width="56" height="84" fill="#9AA8A0"/><g fill="#CFEFFF"><rect x="30" y="18" width="12" height="12"/><rect x="58" y="18" width="12" height="12"/><rect x="30" y="40" width="12" height="12"/><rect x="58" y="40" width="12" height="12"/><rect x="30" y="62" width="12" height="12"/><rect x="58" y="62" width="12" height="12"/></g><rect x="42" y="78" width="16" height="14" fill="#8B5E3C"/>',
+brick:'<path d="M6 30h88v40H6z" fill="#D9694A"/><path d="M6 50h88M32 30v20M60 30v20M20 50v20M48 50v20M76 50v20" fill="none" stroke-width="3"/>',
+plane:'<path d="M4 56L96 18 72 84 52 64 38 76 36 58z" fill="#fff"/><path d="M36 58l16 6" fill="none"/>',
+suit:'<rect x="10" y="28" width="80" height="60" rx="9" fill="#E5566D"/><path d="M36 28v-8c0-6 4-8 8-8h12c4 0 8 2 8 8v8" fill="none" stroke-width="6"/><path d="M34 40v36M66 40v36" fill="none" stroke-width="4"/>',
+leaf:'<path d="M12 84C4 38 36 8 90 10c2 52-26 82-78 74z" fill="#1FBF73"/><path d="M12 84L66 32" fill="none" stroke-width="4"/>',
+wheat:'<path d="M50 94V30" fill="none" stroke-width="5"/><g fill="#F2B544"><ellipse cx="38" cy="30" rx="8" ry="14" transform="rotate(-20 38 30)"/><ellipse cx="62" cy="30" rx="8" ry="14" transform="rotate(20 62 30)"/><ellipse cx="50" cy="16" rx="8" ry="14"/><ellipse cx="36" cy="54" rx="8" ry="14" transform="rotate(-20 36 54)"/><ellipse cx="64" cy="54" rx="8" ry="14" transform="rotate(20 64 54)"/></g>',
+ship:'<path d="M4 62h92l-14 24H20z" fill="#4C8DD6"/><rect x="22" y="36" width="22" height="26" fill="#E5566D"/><rect x="46" y="36" width="22" height="26" fill="#F2B544"/><rect x="34" y="12" width="22" height="24" fill="#fff"/>',
+truck:'<rect x="4" y="26" width="56" height="44" rx="4" fill="#4C8DD6"/><path d="M60 40h20l14 16v14H60z" fill="#F2B544"/><circle cx="26" cy="74" r="10" fill="#1E2A24"/><circle cx="76" cy="74" r="10" fill="#1E2A24"/><circle cx="26" cy="74" r="4" fill="#fff"/><circle cx="76" cy="74" r="4" fill="#fff"/>',
+tv:'<rect x="6" y="24" width="88" height="60" rx="9" fill="#9AA8A0"/><rect x="14" y="32" width="72" height="44" rx="5" fill="#CFEFFF"/><path d="M32 12l18 12 18-12" fill="none" stroke-width="5"/>',
+clap:'<rect x="8" y="40" width="84" height="48" rx="5" fill="#1E2A24"/><path d="M8 40l8-22 70-8 8 20z" fill="#fff"/><path d="M22 36l10-22M44 34l10-22M66 32l10-22" stroke-width="5"/>',
+book:'<path d="M50 24C36 12 16 14 6 20v64c10-6 30-8 44 4 14-12 34-10 44-4V20C84 14 64 12 50 24z" fill="#4C8DD6"/><path d="M50 24v64" fill="none" stroke-width="3"/>',
+cap:'<path d="M50 14L4 38l46 24 46-24z" fill="#1E2A24"/><path d="M24 50v20c0 8 52 8 52 0V50L50 64z" fill="#2B3A47"/><path d="M90 42v30" stroke-width="4"/><circle cx="90" cy="76" r="5" fill="#F2B544"/>',
+ring:'<circle cx="50" cy="62" r="26" fill="none" stroke-width="14"/><circle cx="50" cy="62" r="26" fill="none" stroke="#F2B544" stroke-width="8"/><path d="M36 28l14-18 14 18-14 14z" fill="#7FD8FF"/>',
+solar:'<path d="M14 36h72l8 40H6z" fill="#4C8DD6"/><path d="M32 36l-6 40M50 36v40M68 36l6 40M10 56h80" fill="none" stroke="#CFEFFF" stroke-width="3"/><circle cx="50" cy="16" r="9" fill="#F2B544"/>',
+jet:'<path d="M50 4c8 8 10 26 8 44l32 20v10L58 66l-2 20 12 8v4L50 92l-18 6v-4l12-8-2-20L10 78V68l32-20C40 30 42 12 50 4z" fill="#fff"/>',
+mask:'<path d="M12 28c20-10 56-10 76 0 4 30-10 54-38 62C22 82 8 58 12 28z" fill="#1E2A24"/><path d="M26 44c6-6 14-6 18 0-6 6-14 6-18 0zM56 44c4-6 12-6 18 0-4 6-12 6-18 0z" fill="#fff"/><path d="M38 70c8 6 16 6 24 0" fill="none" stroke="#fff" stroke-width="4"/>'
+};
+const GEN=['candles','trend','bull','bear','coin','bag','target','rocket','magn','bulb','shield','key','glass','trophy','scale','news','calc','hs','cup','dbl','up','down','piggy','ingot','dice','crystal','bell','pct','clock','chest','wallet','gem','pie','bars','tape','crown','x10','buy','sell','hodl'];
+const BUYP=['dice','crystal','bell','scale','glass','x10','pct','clock','target','chest','mask','hodl','sell','buy','bear','bull','coin','bag'];
+const SECT=[[/mining|mineral|metal|steel|iron|alumin|zinc|copper|coal|ore/i,['pick','hat','gem','ingot','mcart']],
+ [/text|apparel|garment|cloth|yarn|fabric|fibre/i,['spool','scis','tee']],
+ [/insur/i,['umb','shield','card']],
+ [/bank|financ|nbfc|loan|capital|broking|credit/i,['bank','card','piggy','coin']],
+ [/soft|\bit\b|tech|comput|internet|digital|data|cyber/i,['laptop','chip','code']],
+ [/telecom|communic|network/i,['tower','chip','code']],
+ [/pharma|drug|health|hospital|medic|diagnos|life ?science|bio/i,['pill','flask','cross']],
+ [/solar|renew|wind|green/i,['solar','wind','bolt']],
+ [/oil|gas|petro|refin|energy|power|electric|utilit/i,['drop','bolt','pump','wind']],
+ [/auto|vehicle|tyre|two.?wheel|motor|bike/i,['car','gear','wheel']],
+ [/fmcg|consumer|food|beverage|retail|trading|personal|grocer|dairy/i,['basket','shbag','apple']],
+ [/cement|construct|infra|real|housing|building|engineer|realty/i,['house','bldg','brick']],
+ [/chem|fertil|paint|plastic|polymer|petrochem/i,['flask','drop','gear']],
+ [/travel|hotel|airline|aviation|tourism|leisure|hospitality/i,['plane','suit','jet']],
+ [/agri|sugar|tea|coffee|rice|seed|plantation|crop/i,['leaf','wheat','apple']],
+ [/ship|logistic|transport|port|courier|freight|marine/i,['ship','truck','plane']],
+ [/media|entertain|broadcast|film|music|gaming/i,['tv','clap','mask']],
+ [/educat|school|learning/i,['book','cap','bulb']],
+ [/defen|aero|weapon|space/i,['jet','shield','rocket']],
+ [/jewel|gold|diamond|silver/i,['ring','gem','ingot','crown']]];
+const hashS=t=>{let h=7;for(const c of String(t))h=(h*31+c.charCodeAt(0))|0;return Math.abs(h)};
+function pickSt(seed,hint,n,pool){const h=hashS(seed),sec=(SECT.find(x=>x[0].test(hint||''))||[])[1],out=[],add=k=>{if(k&&IC[k]&&!out.includes(k))out.push(k)};
+  if(sec){add(sec[h%sec.length]);if(n>3)add(sec[(h>>3)%sec.length])}
+  const g=pool||GEN;for(let i=0;out.length<n&&i<80;i++)add(g[(h+i*7+i*i)%g.length]);return out.slice(0,n)}
+const DIA={"candles":166,"trend":184,"bull":153.5,"bear":163.5,"coin":165,"bag":166.5,"target":159.5,"rocket":166,"magn":190.5,"bulb":157.5,"shield":160.5,"key":189.5,"glass":178,"trophy":166.5,"scale":165.5,"news":179.5,"calc":175.5,"hs":183,"cup":159.5,"dbl":161,"up":164,"down":150.5,"piggy":168,"ingot":188,"dice":172.5,"crystal":166,"bell":162,"pct":165,"clock":165,"chest":184.5,"wallet":177.5,"gem":150.5,"pie":171,"bars":188,"tape":169.5,"crown":184.5,"x10":168,"buy":170,"sell":170,"hodl":168,"pick":181.5,"hat":179,"mcart":174,"spool":178,"scis":169.5,"tee":170,"bank":193,"card":175.5,"umb":160.5,"laptop":184,"chip":169.5,"code":181.5,"tower":170,"pill":140,"flask":187.5,"cross":164,"drop":170.5,"bolt":140.5,"wind":174.5,"pump":176.5,"car":168,"gear":173.5,"wheel":168,"basket":172,"shbag":180,"apple":168,"house":178,"bldg":178,"brick":172,"plane":164,"suit":181.5,"leaf":149.5,"wheat":153.5,"ship":176.5,"truck":172.5,"tv":181.5,"clap":185.5,"book":186,"cap":181.5,"ring":165,"solar":178,"jet":176,"mask":159};
+let SID=0;
+const STDEFS='<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>'+
+ '<filter id="dcut" x="-14%" y="-14%" width="128%" height="128%" color-interpolation-filters="sRGB"><feMorphology in="SourceAlpha" operator="dilate" radius="3.4" result="a"/><feGaussianBlur in="a" stdDeviation="1.15" result="b"/><feComponentTransfer in="b" result="c"><feFuncA type="linear" slope="9" intercept="-3.6"/></feComponentTransfer><feFlood flood-color="#fff"/><feComposite in2="c" operator="in" result="o"/><feMerge><feMergeNode in="o"/><feMergeNode in="SourceGraphic"/></feMerge></filter>'+
+ '<filter id="tint" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0 0 0 0 .97  0 0 0 0 .925  0 0 0 0 .66  0 0 0 1 0"/></filter>'+
+ '<filter id="fsh" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="-1.2" dy="-1.6" stdDeviation="1.6" flood-color="#3a2f00" flood-opacity=".4"/></filter></defs></svg>';
+function stk(name,css){const id='s'+(++SID),art=IC[name]||IC.coin;
+  return `<span class="skw" style="${css}"><svg class="sks" viewBox="-6 -6 112 112" data-d="${DIA[name]||190}" aria-hidden="true"><defs><clipPath id="${id}m"><polygon class="pm" points="-6,-6 106,-6 106,106 -6,106"/></clipPath><clipPath id="${id}f"><polygon class="pf" points="106,106 106,106 106,106"/></clipPath><g id="${id}a" filter="url(#dcut)"><g stroke="#1E2A24" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">${art}</g></g></defs><g clip-path="url(#${id}m)"><use href="#${id}a"/></g><g filter="url(#fsh)"><g clip-path="url(#${id}f)"><g class="pt" transform="matrix(0 -1 -1 0 212 212)"><use href="#${id}a" filter="url(#tint)"/></g></g></g></svg></span>`}
+function peelSet(sv,q){const B=106,E=(+sv.dataset.d||190)-q;sv.querySelector('.pm').setAttribute('points',`-6,-6 ${B},-6 ${B},${E-B} ${E-B},${B} -6,${B}`);sv.querySelector('.pf').setAttribute('points',`${E-B},${E-B} ${E-B},${B} ${B},${E-B}`);sv.querySelector('.pt').setAttribute('transform',`matrix(0 -1 -1 0 ${E} ${E})`)}
+function peelTo(w,on){const sv=w.querySelector('svg.sks');if(!sv)return;sv._t=on?26:0;if(sv._r)return;sv._r=1;(function f(){const c=sv._p||0,d=sv._t-c;if(Math.abs(d)<.2){sv._p=sv._t;peelSet(sv,sv._p);sv._r=0;return}sv._p=c+d*.24;peelSet(sv,sv._p);requestAnimationFrame(f)})()}
+document.body.insertAdjacentHTML('beforeend',STDEFS);
+const G='#1FBF73',Rr='#E5566D';
+const HSLOT=['top:2.6em;left:3.6em;width:5.6em;transform:rotate(-8deg)','top:10.4em;left:3.3em;width:5em;transform:rotate(7deg)','top:17.6em;right:2.4em;width:5.2em;transform:rotate(-6deg)'];
+const SK=pickSt(String(Date.now()),'',3).map((n,i)=>stk(n,HSLOT[i])).join('');
 const fin=`<div class="fin"><svg class="sm" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 6C74 4 94 24 93 50C92 76 72 94 48 93C24 92 6 72 8 48C10 24 26 8 50 6Z" fill="#FFE45E"/><path d="M20 30L40 14M16 46L56 12M18 62L72 16M24 76L84 26M34 84L88 40M50 88L90 58" stroke="#F5A524" stroke-width="3.5" stroke-linecap="round" opacity=".65"/><path d="M50 6C74 4 94 24 93 50C92 76 72 94 48 93C24 92 6 72 8 48C10 24 26 8 50 6Z" fill="none" stroke="#33333D" stroke-width="3" stroke-linejoin="round"/><ellipse cx="36" cy="38" rx="3.5" ry="6.5" fill="#33333D"/><ellipse cx="64" cy="38" rx="3.5" ry="6.5" fill="#33333D"/><path d="M28 60C38 78 62 78 72 58" fill="none" stroke="#C23B52" stroke-width="4" stroke-linecap="round"/><circle cx="23" cy="56" r="7" fill="#FF8FA3" opacity=".7"/><circle cx="77" cy="56" r="7" fill="#FF8FA3" opacity=".7"/></svg><p>You don’t need a course to start or master your journey in stock market, you just need a <mark>Dalal Diary</mark></p><button class="go gs" id="gs">Get started</button></div>`;
 let h=`<div class="bb cvb"><div class="inpg pap">${fin}</div></div>`;
 for(let k=0;k<6;k++)h+=`<div class="lf" style="--zc:${(6-k)*.8}px;--zf:${k*.8}px"><div class="ff ${k?'pap':'cv'}">${k?face(2*k-1):'<i class="frm"></i><b>Dalal<br>Diary</b><small>the diary every stock market paglu needs</small>'+SK+'<span class="stk">tap the diary to see whats hidden :)</span><i class="shn"></i>'}</div>${k?`<div class="fb pap">${face(2*k)}</div>`:`<div class="fb cvb"><div class="inpg pap">${face(0)}</div></div>`}</div>`;
@@ -680,14 +828,21 @@ function pg4(r){const d=DK.fd;let body;
   else{const o=d?insights(d):[];body=o.length?`<div class="hw2">what the numbers say</div>`+o.map(t=>`<div class="ins">${hl(t)}</div>`).join('')+'<div class="note2">Plain observations from the figures on the left. They are not advice, and a high or low figure is not good or bad by itself.</div>':'<div class="ld2">Not enough data to compare this company with its sector.</div>'}
   return `<div class="dp">${hd(r,'Fundamental analysis')}<div class="dbd">${body}</div>${rgt(4,'More chapters on the way: ratios, holdings, financials','')}</div>`}
 const PGS=[pg1,pg2,pg3,pg4];
-function paintPages(){if(!DK.r)return;PGS.forEach((f,i)=>{const e=$('#dp'+(i+1));if(e)e.innerHTML=f(DK.r)});const sc=$('#mSec');if(sc&&DK.fd&&DK.fd.prof)sc.textContent=DK.fd.prof.sec||'';paint();qs()}
+function paintPages(){if(!DK.r)return;PGS.forEach((f,i)=>{const e=$('#dp'+(i+1));if(e)e.innerHTML=f(DK.r)});const sc=$('#mSec');if(sc&&DK.fd&&DK.fd.prof)sc.textContent=DK.fd.prof.sec||'';const ms=$('#mStk');if(ms&&DK.fd&&DK.fd.prof&&pickSt(DK.r.s,secOf(DK.r)+' '+DK.r.n,4).join()!==DK.stk)ms.innerHTML=mStickers(DK.r);paint();qs()}
 function leaf(k,L,cls,front,back){return `<div class="lf" style="--zc:${(L-k)*.8}px;--zf:${k*.8}px"><div class="ff ${k?'pap':'cv '+cls}">${front}</div>${k?`<div class="fb pap">${back}</div>`:`<div class="fb cvb"><div class="inpg pap">${back}</div></div>`}</div>`}
 function bookHTML(cls,cover,pages){const L=pages.length/2;let h=`<div class="bb cvb"><div class="inpg pap">${pages[pages.length-1]}</div></div>`;for(let k=0;k<L;k++)h+=leaf(k,L,cls,k?pages[2*k-1]:cover,pages[2*k]);return h}
-const E=(t,x,y,rot)=>`<span class="skw" style="top:${y}em;left:${x}em;transform:rotate(${rot}deg)"><span class="sk e">${t}</span></span>`;
+const SLM=[[2.8,4.8,4.9,-8],[2.4,18.4,4.7,9],[17.4,5.0,5.1,-5],[17.8,14.4,5.2,7]],SLB=[[15.8,16.6,4.8,8],[22,20.2,4.2,-7],[3.2,9.6,4.6,-9]];
+const stl=(a)=>`top:${a[0]}em;left:${a[1]}em;width:${a[2]}em;transform:rotate(${a[3]}deg)`;
+function secOf(r){if(DK.fd&&DK.fd.prof&&DK.fd.prof.sec)return DK.fd.prof.sec;try{const c=JSON.parse(localStorage.getItem(FDKEY+r.i)||'null');return(c&&c.d&&c.d.prof&&c.d.prof.sec)||''}catch(e){return''}}
+function mStickers(r){const n=pickSt(r.s,secOf(r)+' '+r.n,4);DK.stk=n.join();return n.map((k,i)=>stk(k,stl(SLM[i]))).join('')}
+const EMBLEM='<svg class="emb" viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><circle cx="50" cy="50" r="44"/><circle cx="50" cy="50" r="38" stroke-width="1.2"/><path d="M33 70V28M50 74V22M67 62V30"/></g><g fill="currentColor"><rect x="27" y="40" width="12" height="22" rx="1.5"/><rect x="44" y="34" width="12" height="30" rx="1.5"/><rect x="61" y="38" width="12" height="18" rx="1.5"/></g><path d="M24 78c14-6 28-16 52-34M66 42h10v10" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/></svg>';
+const INKSTAMP='<svg class="inkst" viewBox="0 0 240 124" aria-hidden="true"><defs><filter id="wear" x="-4%" y="-4%" width="108%" height="108%"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="11" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -9 6.5" result="m"/><feComposite in="SourceGraphic" in2="m" operator="in"/></filter></defs><g filter="url(#wear)"><g fill="none" stroke="#D2404B"><rect x="4" y="4" width="232" height="116" rx="17" stroke-width="5"/><rect x="14" y="14" width="212" height="96" rx="11" stroke-width="2"/></g><g fill="#D2404B" text-anchor="middle"><text x="120" y="39" font-family="DM Serif Display,serif" font-size="16" textLength="150" lengthAdjust="spacing">TOP ★ SECRET</text><text x="120" y="80" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="38" textLength="190" lengthAdjust="spacingAndGlyphs">TOP SECRET</text><text x="120" y="102" font-family="DM Serif Display,serif" font-size="16" textLength="150" lengthAdjust="spacing">TOP ★ SECRET</text></g></g></svg>';
+const CURVE='<svg class="ul" viewBox="0 0 120 10" preserveAspectRatio="none" aria-hidden="true"><path d="M3 6.5C30 1.5 64 8.5 117 3" fill="none" stroke="#C23B52" stroke-width="2.6" stroke-linecap="round"/></svg>';
 function deskHTML(r){
-  const mort=bookHTML('cvM',`<i class="frm"></i><b>Stock<br>Mortem<br>Report</b><span class="stk stk2"><u>${esc(r.n)}</u><br>${esc(sym0(r))}<i id="mSec"></i></span>${E('💰',3.2,2.4,-9)}${E('🤫',3.4,10.4,7)}${E('📈',14.5,16.6,-6)}${E('🔒',17.6,2.2,10)}<i class="shn" style="--d:2.5s"></i>`,
+  const mort=bookHTML('cvM',`<i class="frm"></i><b class="ttl">Stock<br>Mortem<br>Report</b>${EMBLEM}<span class="stk stk2"><span class="nm">${esc(r.n)}${CURVE}</span><span class="sy">${esc(sym0(r))}</span><i id="mSec"></i></span><span id="mStk" style="display:contents">${mStickers(r)}</span><i class="shn" style="--d:2.5s"></i>`,
     [1,2,3,4].map(i=>`<div class="dp" id="dp${i}"></div>`));
-  const buy=bookHTML('cvB',`<i class="frm"></i><b>Should<br>I buy?</b><span class="stamp">TOP<br>SECRET</span>${E('🤔',3.6,9.5,-7)}${E('💸',18.4,15.6,8)}<span class="stk pink">confused… 🙈<br>read me first</span><i class="shn" style="--d:4s"></i>`,
+  const bst=pickSt(r.s+'b','',3,BUYP);
+  const buy=bookHTML('cvB',`<i class="frm"></i><b class="ttl">Should<br>I buy?</b>${INKSTAMP}<span class="stk grn"><span class="q">Why? When? Who? How Much? Multibagger? 10X? Hero-Zero?</span><span class="sc">It's a <u>SECRET</u> :)</span></span>${bst.map((k,i)=>stk(k,stl(SLB[i]))).join('')}<i class="shn" style="--d:6s"></i>`,
     ['<div class="soon" style="opacity:.5"><span class="hw2">…</span></div>',`<div class="dp"><div class="soon"><span class="hw2">Coming soon…</span><span class="meta2">A very secret page. Something clever<br>will be written here, I promise.</span><svg viewBox="0 0 120 80" width="60%" aria-hidden="true"><g fill="none" stroke="#0E8F4F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M30 12h40M30 68h40M34 12c0 22 26 20 26 28S34 46 34 68M66 12c0 22-26 20-26 28S66 46 66 68"/><circle cx="96" cy="26" r="12" stroke="#C23B52"/><path d="M96 20v12M92 24c2-3 6-3 8 0" stroke="#C23B52"/></g></svg><span class="hw2" style="font-size:1.6em">?  ?  ?</span></div></div>`]);
   return `<div class="dstage" id="dstage"><div class="dkw" id="dBuy"><div class="dk"><div class="book mb2" id="bBuy">${buy}</div></div></div><div class="dkw" id="dMort"><div class="dk"><div class="book mb2" id="bMort">${mort}</div></div></div><button class="putback" id="putback">↩ put the diary back</button></div>`}
 function goTo(b,n){[...b.querySelectorAll('.lf')].forEach((l,i)=>{const w=i<n,h=l.classList.contains('fl');if(w&&!h)l.classList.add('fl');else if(!w&&h){l.classList.remove('fl');l.classList.add('un')}})}
@@ -706,8 +861,8 @@ function openDesk(sym){
 function closeDesk(){DK.tm.forEach(clearTimeout);DK.tm=[];DK.state='off';DK.sym=null;DK.r=null;const d=$('#desk');if(d){d.classList.remove('on');d.dataset.s='off';d.innerHTML=''}}
 function mortOpen(){if(DK.lock||DK.state!=='stack')return;DK.lock=true;DK.state='mort';$('#desk').dataset.s='mort';
   dat(()=>{DK.mb.classList.add('open');goTo(DK.mb,1);DK.k=1},700);dat(()=>{DK.lock=false},2000)}
-function buyOpen(){if(DK.lock||DK.state!=='stack')return;DK.lock=true;DK.state='buy';$('#desk').dataset.s='buy';
-  dat(()=>{DK.bb.classList.add('open');goTo(DK.bb,1)},800);dat(()=>{DK.lock=false},2000)}
+function buyOpen(){if(DK.lock||DK.state!=='stack')return;DK.lock=true;DK.state='buy';const d=$('#desk');d.dataset.s='swap';
+  dat(()=>{d.dataset.s='buy'},560);dat(()=>{DK.bb.classList.add('open');goTo(DK.bb,1)},1700);dat(()=>{DK.lock=false},2900)}
 function backToShelf(){if(DK.state==='stack'||DK.state==='off')return;const b=DK.state==='mort'?DK.mb:DK.bb;DK.lock=true;
   goTo(b,0);dat(()=>{b.classList.remove('open');$('#desk').dataset.s='stack';DK.state='stack';DK.k=0},1250);dat(()=>{DK.lock=false},2300)}
 function nav(dir){if(DK.lock||DK.state!=='mort')return;const n=DK.k+dir;if(n<1){backToShelf();return}if(n>DK.S)return;DK.lock=true;DK.k=n;goTo(DK.mb,n);dat(()=>{DK.lock=false},1100)}
@@ -721,8 +876,8 @@ $('#desk').addEventListener('click',e=>{const t=e.target,nb=navAt(e);
 
 let plEl=null,plBusy=false,plx=0,ply=0;
 addEventListener('mousemove',e=>{plx=e.clientX;ply=e.clientY;if(plBusy)return;plBusy=true;requestAnimationFrame(()=>{plBusy=false;
-  const t=document.elementsFromPoint(plx,ply).find(x=>x.classList&&(x.classList.contains('sk')||x.classList.contains('stk')))||null;
-  if(t!==plEl){if(plEl)plEl.classList.remove('pl');plEl=t;if(t)t.classList.add('pl')}})},{passive:true});
+  const t=document.elementsFromPoint(plx,ply).find(x=>x.classList&&(x.classList.contains('skw')||x.classList.contains('stk')))||null;
+  if(t!==plEl){if(plEl){if(plEl.classList.contains('skw'))peelTo(plEl,0);else plEl.classList.remove('pl')}plEl=t;if(t){if(t.classList.contains('skw'))peelTo(t,1);else t.classList.add('pl')}}})},{passive:true});
 function chips(){chips0();try{renderDiary()}catch(e){console.error('diary render failed',e)}}
 const V={home:$('#v-home'),stocks:$('#v-stocks'),diary:$('#v-diary')},ORD=['home','stocks','diary'],MS=900,EASE='cubic-bezier(.65,.05,.25,1)';
 const nv=document.querySelector('.nav'),tabs=[...nv.querySelectorAll('.tab')],mark=nv.querySelector('.mark');
